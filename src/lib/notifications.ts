@@ -16,20 +16,20 @@ export async function sendResetEmail(email: string, resetUrl: string) {
     });
 
     const mailOptions = {
-        from: process.env.FROM_EMAIL || '"GP Tour" <noreply@gptour.com>',
+        from: process.env.FROM_EMAIL || '"GP Travels" <noreply@gptravels.com>',
         to: email,
-        subject: 'Reset Your GP Tour Password',
+        subject: 'Reset Your GP Travels Password',
         html: `
             <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
                 <h2 style="color: #3b82f6;">Password Reset Request</h2>
                 <p>Hello,</p>
-                <p>We received a request to reset your password for your GP Tour account. Click the button below to set a new password:</p>
+                <p>We received a request to reset your password for your GP Travels account. Click the button below to set a new password:</p>
                 <div style="text-align: center; margin: 30px 0;">
                     <a href="${resetUrl}" style="display: inline-block; padding: 14px 30px; background-color: #3b82f6; color: white; text-decoration: none; border-radius: 12px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">Reset My Password</a>
                 </div>
                 <p style="color: #64748b; font-size: 14px;">If you did not request this, please ignore this email. This link will expire in 1 hour.</p>
                 <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
-                <p style="color: #94a3b8; font-size: 12px; text-align: center;">Best regards,<br/>The GP Tour Team</p>
+                <p style="color: #94a3b8; font-size: 12px; text-align: center;">Best regards,<br/>The GP Travels Team</p>
             </div>
         `,
     };
