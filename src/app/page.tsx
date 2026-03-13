@@ -8,6 +8,8 @@ import { prisma } from "@/lib/db";
 
 import { getSiteSettings, getTestimonials } from "@/lib/settings";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   let featuredTours: any[] = [];
   let settings: any = {};

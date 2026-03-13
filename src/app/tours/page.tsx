@@ -1,4 +1,6 @@
 import React from 'react';
+
+export const dynamic = 'force-dynamic';
 import { Search, MapPin, Clock, Phone, MessageCircle } from 'lucide-react';
 import { TourCard } from '@/components/ui/TourCard';
 import { SearchInput } from '@/components/ui/SearchInput';

@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import dotenv from 'dotenv';
+import bcrypt from 'bcryptjs';
 
 dotenv.config();
 
@@ -106,13 +107,13 @@ const initialUsers = [
         username: "admin",
         email: "admin@example.com",
         password: "securepassword", // This should be hashed in a real application
-        role: "ADMIN",
+        role: "admin",
     },
     {
         username: "user1",
         email: "user1@example.com",
         password: "password123", // This should be hashed in a real application
-        role: "USER",
+        role: "user",
     }
 ];
 
@@ -128,6 +129,27 @@ const initialTestimonials = [
         role: "Adventurer",
         content: "Amazing experience, great service, and beautiful locations.",
         rating: 4,
+    }
+];
+
+const initialCars = [
+    {
+        name: "Toyota Land Cruiser PRADO",
+        image: "https://images.unsplash.com/photo-1594976612710-8a939c429d3c?q=80&w=2070&auto=format&fit=crop",
+        details: "4x4 Luxury SUV, comfortable for 5-7 people, perfect for mountain terrains.",
+        hourlyPrice: "50",
+    },
+    {
+        name: "Toyota Hiace (Grand Cabin)",
+        image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop",
+        details: "Spacious van for 12-14 people, ideal for large groups and family trips.",
+        hourlyPrice: "80",
+    },
+    {
+        name: "Honda BR-V",
+        image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=1964&auto=format&fit=crop",
+        details: "7-seater MPV, good for city and highway travel with a small family.",
+        hourlyPrice: "40",
     }
 ];
 
@@ -151,6 +173,7 @@ async function main() {
         await prisma.user.deleteMany();
         await prisma.testimonial.deleteMany();
         await prisma.siteSettings.deleteMany();
+        await prisma.car.deleteMany();
 
         // Seed tours
         for (const tour of initialTours) {
@@ -170,8 +193,12 @@ async function main() {
 
         // Seed users
         for (const user of initialUsers) {
+            const hashedPassword = await bcrypt.hash(user.password, 10);
             const result = await prisma.user.create({
-                data: user,
+                data: {
+                    ...user,
+                    password: hashedPassword,
+                },
             });
             console.log(`Created user with id: ${result.id}`);
         }
@@ -190,6 +217,14 @@ async function main() {
                 data: setting,
             });
             console.log(`Created site setting with key: ${result.key}`);
+        }
+
+        // Seed cars
+        for (const car of initialCars) {
+            const result = await prisma.car.create({
+                data: car,
+            });
+            console.log(`Created car with id: ${result.id}`);
         }
     } catch (error) {
         console.error('Error during seeding:', error);

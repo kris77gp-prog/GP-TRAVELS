@@ -1,4 +1,6 @@
 import React from 'react';
+
+export const dynamic = 'force-dynamic';
 import { Search, Car as CarIcon, Info } from 'lucide-react';
 import { CarCard } from '@/components/ui/CarCard';
 import { SearchInput } from '@/components/ui/SearchInput';
