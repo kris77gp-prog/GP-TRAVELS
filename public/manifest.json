@@ -1,0 +1,21 @@
+{
+  "name": "GP Tour | Premium Travel",
+  "short_name": "GP Tour",
+  "description": "Premium travel experiences for unforgettable journeys.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#f97316",
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=192&h=192&auto=format&fit=crop",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=512&h=512&auto=format&fit=crop",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
