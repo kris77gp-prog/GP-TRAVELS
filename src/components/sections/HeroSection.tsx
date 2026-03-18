@@ -24,7 +24,7 @@ export const HeroSection = ({ settings }: HeroSectionProps) => {
                     src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop"
                     alt="Travel Background"
                     fill
-                    className="object-cover object-[35%_center] md:object-center scale-100 transition-opacity duration-700"
+                    className="object-cover object-[75%_center] md:object-center scale-100 transition-opacity duration-700"
                     sizes="100vw"
                     priority
                 />
