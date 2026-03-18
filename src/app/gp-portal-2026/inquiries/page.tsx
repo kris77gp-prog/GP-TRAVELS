@@ -1,4 +1,5 @@
 import React from 'react';
+export const dynamic = 'force-dynamic';
 import { prisma } from '@/lib/db';
 import { cn } from '@/lib/utils';
 import { MessageSquare, Phone, Calendar, Clock, Trash2 } from 'lucide-react';

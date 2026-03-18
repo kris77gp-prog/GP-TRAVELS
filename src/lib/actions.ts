@@ -230,6 +230,7 @@ export async function createInquiry(formData: FormData) {
             data: result.data,
         });
         revalidatePath("/gp-portal-2026");
+        revalidatePath("/gp-portal-2026/inquiries");
         return { success: true };
     } catch (e) {
         return { success: false, error: "Something went wrong. Please try again." };
@@ -246,6 +247,7 @@ export async function logContactClick(type: 'whatsapp' | 'phone', location: stri
         }
     });
     revalidatePath("/gp-portal-2026");
+    revalidatePath("/gp-portal-2026/inquiries");
 }
 
 export async function deleteInquiry(id: string) {
