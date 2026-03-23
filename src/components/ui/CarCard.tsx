@@ -32,7 +32,7 @@ export const CarCard = ({ car, settings }: CarCardProps) => {
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/80 via-[#0f172a]/10 to-transparent opacity-50" />
                 
                 {car.hourlyPrice && (
                     <div className="absolute top-6 right-6">

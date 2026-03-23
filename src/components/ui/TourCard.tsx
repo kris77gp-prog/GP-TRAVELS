@@ -29,7 +29,7 @@ export const TourCard = ({ tour }: { tour: Tour }) => {
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-40" />
                 
                 <div className="absolute top-6 left-6 flex flex-col gap-2">
                     <span className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-5 py-2 rounded-2xl text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-widest shadow-xl flex items-center gap-2">

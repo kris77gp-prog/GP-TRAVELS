@@ -43,9 +43,9 @@ export const HeroSection = ({ settings }: HeroSectionProps) => {
                     />
                 </div>
 
-                {/* Overlays for legibility */}
-                <div className="absolute inset-0 bg-slate-950/50" />
-                <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950" />
+                {/* Overlays for legibility (Lightened) */}
+                <div className="absolute inset-0 bg-slate-950/10" />
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-950/30 via-transparent to-slate-950/80" />
                 
                 {/* Bottom transition blend (Shadow/Fade to next section) */}
                 <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-background to-transparent z-20" />
