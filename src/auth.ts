@@ -1,5 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GitHubProvider from "next-auth/providers/github";
 import { prisma } from "@/lib/db";
 import bcrypt from "bcryptjs";
 
@@ -104,6 +105,10 @@ export const authOptions: NextAuthOptions = {
                     throw new Error("Invalid username or password");
                 }
             }
+        }),
+        GitHubProvider({
+            clientId: process.env.GITHUB_ID!,
+            clientSecret: process.env.GITHUB_SECRET!,
         })
     ],
     pages: {
