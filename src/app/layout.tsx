@@ -38,7 +38,7 @@ export default function RootLayout({
   // allowing them to stay as Server Components with their own Suspendable data fetching.
   
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#f97316" />
