@@ -70,13 +70,10 @@ export default async function TourDetailPage({
                     {/* Left Side: Images */}
                     <div className="space-y-8">
                         <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl">
-                            <Image
+                            <img
                                 src={tour.image}
                                 alt={tour.title}
-                                fill
-                                unoptimized
-                                className="object-cover"
-                                priority
+                                className="w-full h-full object-cover"
                             />
                         </div>
 
