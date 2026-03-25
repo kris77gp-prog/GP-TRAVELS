@@ -27,6 +27,7 @@ export const TourCard = ({ tour }: { tour: Tour }) => {
                     src={tour.image}
                     alt={tour.title}
                     fill
+                    unoptimized
                     className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-40" />

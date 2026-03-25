@@ -74,6 +74,7 @@ export default async function TourDetailPage({
                                 src={tour.image}
                                 alt={tour.title}
                                 fill
+                                unoptimized
                                 className="object-cover"
                                 priority
                             />
