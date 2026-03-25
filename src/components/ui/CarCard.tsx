@@ -30,6 +30,7 @@ export const CarCard = ({ car, settings }: CarCardProps) => {
                     src={car.image || "/placeholder-car.jpg"}
                     alt={car.name}
                     fill
+                    unoptimized
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/80 via-[#0f172a]/10 to-transparent opacity-50" />
