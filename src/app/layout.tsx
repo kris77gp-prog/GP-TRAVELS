@@ -1,21 +1,16 @@
 
 import React, { Suspense } from "react";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import NextAuthProvider from "@/components/providers/NextAuthProvider";
 import ClientLayout from "@/components/layout/ClientLayout";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const outfit = Outfit({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-outfit",
 });
 
 export const metadata: Metadata = {
@@ -43,7 +38,7 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#f97316" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${outfit.variable} antialiased`}>
         <NextAuthProvider>
           <ClientLayout 
             navbar={

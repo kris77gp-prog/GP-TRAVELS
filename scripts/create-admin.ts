@@ -1,54 +1,27 @@
-import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
-
-const prisma = new PrismaClient();
+import { PrismaClient } from '@prisma/client'
+const bcrypt = require('bcryptjs')
+const prisma = new PrismaClient()
 
 async function main() {
-    const username = process.env.ADMIN_USERNAME || "admin";
-    const password = process.env.ADMIN_PASSWORD || "admin123";
-
-    // Enforce strong password policy
-    if (password.length < 12 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/[0-9]/.test(password) || !/[!@#$%^&*]/.test(password)) {
-        throw new Error("Password must be at least 12 characters long and include uppercase, lowercase, numeric, and special characters.");
+  const hashedPassword = await bcrypt.hash('GP-Admin-2026-Security!', 10)
+  
+  const user = await prisma.user.create({
+    data: {
+      username: 'admin_gptour',
+      email: 'admin@gptour.com',
+      password: hashedPassword,
+      role: 'admin'
     }
-
-    const email = "admin@gptour.com";
-
-    // Check if admin already exists
-    const existingAdmin = await prisma.user.findUnique({
-        where: { username },
-    });
-
-    if (existingAdmin) {
-        console.log("Admin user already exists. Updating password...");
-        const hashedPassword = await bcrypt.hash(password, 12);
-        await prisma.user.update({
-            where: { username },
-            data: { password: hashedPassword },
-        });
-        console.log("Admin password updated.");
-        return;
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 12);
-
-    await prisma.user.create({
-        data: {
-            username,
-            email,
-            password: hashedPassword,
-            role: "admin",
-        },
-    });
-
-    console.log("Admin user created successfully with hashed password!");
+  })
+  
+  console.log('SUCCESS: Admin User Created Successfully!')
+  console.log('Username: admin_gptour')
+  console.log('Email: admin@gptour.com')
 }
 
 main()
-    .catch((e) => {
-        console.error(e);
-        process.exit(1);
-    })
-    .finally(async () => {
-        await prisma.$disconnect();
-    });
+  .catch((e) => {
+    console.error('ERROR during registration:', e.message)
+    process.exit(1)
+  })
+  .finally(() => prisma.$disconnect())

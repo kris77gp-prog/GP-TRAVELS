@@ -1,9 +1,6 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Outfit';
-  src: url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
-}
+/* Font handling is done via next/font in layout.tsx */
 
 :root {
   --background: #ffffff;

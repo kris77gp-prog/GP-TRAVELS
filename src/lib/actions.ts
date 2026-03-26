@@ -10,7 +10,8 @@ import { authOptions } from "@/auth";
 import { z } from "zod";
 import crypto from "crypto";
 import { sendResetEmail } from "./notifications";
-import { supabase } from "./supabase";
+import { supabase, supabaseAdmin } from "./supabase";
+
 import { checkRateLimit } from "./ratelimit";
 
 // --- Validation Schemas ---
@@ -71,14 +72,18 @@ async function saveFile(file: File): Promise<string> {
     }
 
     // --- Production Fix: Supabase Storage Support ---
-    if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    if (process.env.NEXT_PUBLIC_SUPABASE_URL && (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY)) {
         try {
             const bytes = await file.arrayBuffer();
             const buffer = Buffer.from(bytes);
             
             const safeName = file.name.toLowerCase().replace(/[^a-z0-9.]/g, "-");
             const filename = `${Date.now()}-${safeName}`;
-            const { data, error } = await supabase.storage
+            
+            // Use Admin client if available, otherwise fallback to public client
+            const client = supabaseAdmin || supabase;
+            
+            const { data, error } = await client.storage
                 .from("uploads")
                 .upload(filename, buffer, {
                     contentType: file.type,
@@ -87,11 +92,11 @@ async function saveFile(file: File): Promise<string> {
 
             if (error) {
                 console.error("Supabase Storage Error Details:", error);
-                throw new Error(`Supabase Upload Failed: ${error.message} (Check if your bucket "uploads" is set to Public and your ANON Key is correct)`);
+                throw new Error(`Supabase Upload Failed: ${error.message} (Check if your bucket "uploads" exists and your Service Role Key is correct)`);
             }
 
             // Get the public URL for the uploaded file
-            const { data: { publicUrl } } = supabase.storage
+            const { data: { publicUrl } } = client.storage
                 .from("uploads")
                 .getPublicUrl(filename);
 
@@ -108,8 +113,9 @@ async function saveFile(file: File): Promise<string> {
     // Fallback/Local Development: Save to public/uploads
     // NOTE: This will not work on Vercel deployment!
     if (process.env.NODE_ENV === 'production') {
-        throw new Error("Storage configuration missing. Please ensure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are set in Vercel.");
+        throw new Error("Storage configuration missing. Please ensure SUPABASE_SERVICE_ROLE_KEY is set in Vercel.");
     }
+
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);

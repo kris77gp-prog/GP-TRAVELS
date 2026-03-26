@@ -50,3 +50,6 @@ reset_log.txt
 
 # Local uploads
 /public/uploads/
+
+.vercel
+.env*.local

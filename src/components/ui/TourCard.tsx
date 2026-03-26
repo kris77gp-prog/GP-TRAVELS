@@ -31,10 +31,10 @@ export const TourCard = ({ tour }: { tour: Tour }) => {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-40" />
                 
                 <div className="absolute top-6 left-6 flex flex-col gap-2">
-                    <span className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-5 py-2 rounded-2xl text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-widest shadow-xl flex items-center gap-2">
+                    <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-5 py-2 rounded-2xl text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-widest shadow-xl flex items-center gap-2">
                         <MapPin className="w-3 h-3 text-primary" />
                         {tour.destination}
-                    </span>
+                    </div>
                 </div>
 
                 <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
