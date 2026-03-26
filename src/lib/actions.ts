@@ -102,17 +102,16 @@ async function saveFile(file: File): Promise<string> {
                 throw new Error(`Upload Failed: ${error.message}${error.statusCode === '403' ? ' (Check bucket policies or use a valid Service Role Key)' : ''}`);
             }
 
-            // Get the public URL
             const { data: { publicUrl } } = client.storage
                 .from("uploads")
                 .getPublicUrl(filename);
 
+            if (!publicUrl) throw new Error("Supabase failed to generate a public URL.");
             return publicUrl;
         } catch (error: any) {
             console.error("Supabase Cloud Storage Crash:", error);
-            if (process.env.NODE_ENV === 'production') {
-                throw new Error(`Storage failure: ${error.message || 'Check your Supabase configuration in Vercel'}`);
-            }
+            // Critical: If cloud upload fails in production, we MUST STOP. we cannot fallback to local filesystem.
+            throw new Error(`Storage failure: ${error.message || 'Check your Supabase configuration in Vercel'}`);
         }
     }
 
