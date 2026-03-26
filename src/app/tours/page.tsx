@@ -7,7 +7,7 @@ import { getSiteSettings } from '@/lib/settings';
 import { CONTACT_INFO } from '@/lib/data';
 import { SectionSkeleton } from '@/components/ui/Skeletons';
 
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 async function ToursContent({ search }: { search?: string }) {
     const tours = await prisma.tour.findMany({
