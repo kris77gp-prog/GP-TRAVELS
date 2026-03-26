@@ -54,10 +54,18 @@ export default function CarForm({ car }: CarFormProps) {
         setLoading(true);
         setErrorMessage(null);
         try {
+            let result;
             if (isEditing) {
-                await updateCar(car.id, formData);
+                result = await updateCar(car.id, formData);
             } else {
-                await createCar(formData);
+                result = await createCar(formData);
+            }
+
+            if (result.success) {
+                router.push("/gp-portal-2026/cars");
+                router.refresh();
+            } else {
+                setErrorMessage(result.error || "Failed to save vehicle details.");
             }
         } catch (error: any) {
             // Check if it's a Next.js redirect - this is intentional success!

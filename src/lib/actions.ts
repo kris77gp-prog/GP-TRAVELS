@@ -362,68 +362,80 @@ export async function logAdminAction(action: string, details: Record<string, any
 // --- Car Actions ---
 
 export async function createCar(formData: FormData) {
-    await checkAuth();
+    try {
+        await checkAuth();
 
-    const data = {
-        name: formData.get("name") as string,
-        details: formData.get("details") as string,
-        hourlyPrice: formData.get("hourly-price") as string || null,
-    };
+        const data = {
+            name: formData.get("name") as string,
+            details: formData.get("details") as string,
+            hourlyPrice: formData.get("hourly-price") as string || null,
+        };
 
-    const validated = CarSchema.parse(data);
+        const validated = CarSchema.parse(data);
 
-    let imageUrl = formData.get("image-url") as string;
-    const imageFile = formData.get("image-file") as File;
+        let imageUrl = formData.get("image-url") as string;
+        const imageFile = formData.get("image-file") as File;
 
-    if (imageFile && imageFile.size > 0) {
-        imageUrl = await saveFile(imageFile);
+        if (imageFile && imageFile.size > 0) {
+            imageUrl = await saveFile(imageFile);
+        }
+
+        await prisma.car.create({
+            data: {
+                ...validated,
+                image: imageUrl || "/placeholder-car.jpg",
+            },
+        });
+
+        revalidatePath("/gp-portal-2026/cars");
+        revalidatePath("/cars");
+        revalidatePath("/");
+        return { success: true };
+    } catch (error: any) {
+        if (isRedirect(error)) throw error;
+        console.error("Create Car Action Error:", error);
+        return { success: false, error: error.message || "Failed to create vehicle" };
     }
-
-    await prisma.car.create({
-        data: {
-            ...validated,
-            image: imageUrl || "/placeholder-car.jpg",
-        },
-    });
-
-    revalidatePath("/gp-portal-2026/cars");
-    revalidatePath("/cars");
-    revalidatePath("/");
-    redirect("/gp-portal-2026/cars");
 }
 
 export async function updateCar(id: string, formData: FormData) {
-    await checkAuth();
+    try {
+        await checkAuth();
 
-    const data = {
-        name: formData.get("name") as string,
-        details: formData.get("details") as string,
-        hourlyPrice: formData.get("hourly-price") as string || null,
-    };
+        const data = {
+            name: formData.get("name") as string,
+            details: formData.get("details") as string,
+            hourlyPrice: formData.get("hourly-price") as string || null,
+        };
 
-    const validated = CarSchema.parse(data);
+        const validated = CarSchema.parse(data);
 
-    let imageUrl = formData.get("image-url") as string;
-    const imageFile = formData.get("image-file") as File;
+        let imageUrl = formData.get("image-url") as string;
+        const imageFile = formData.get("image-file") as File;
 
-    if (imageFile && imageFile.size > 0) {
-        imageUrl = await saveFile(imageFile);
+        if (imageFile && imageFile.size > 0) {
+            imageUrl = await saveFile(imageFile);
+        }
+
+        const updateData: any = { ...validated };
+        if (imageUrl) {
+            updateData.image = imageUrl;
+        }
+
+        await prisma.car.update({
+            where: { id },
+            data: updateData,
+        });
+
+        revalidatePath("/gp-portal-2026/cars");
+        revalidatePath("/cars");
+        revalidatePath("/");
+        return { success: true };
+    } catch (error: any) {
+        if (isRedirect(error)) throw error;
+        console.error("Update Car Action Error:", error);
+        return { success: false, error: error.message || "Failed to update vehicle" };
     }
-
-    const updateData: any = { ...validated };
-    if (imageUrl) {
-        updateData.image = imageUrl;
-    }
-
-    await prisma.car.update({
-        where: { id },
-        data: updateData,
-    });
-
-    revalidatePath("/gp-portal-2026/cars");
-    revalidatePath("/cars");
-    revalidatePath("/");
-    redirect("/gp-portal-2026/cars");
 }
 
 export async function deleteCar(id: string) {
