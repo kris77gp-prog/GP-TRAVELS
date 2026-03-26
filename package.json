@@ -9,7 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@prisma/client": "6.19.2",
+    "@prisma/client": "6.4.1",
     "@supabase/supabase-js": "^2.99.1",
     "@types/bcryptjs": "^2.4.6",
     "authenticator": "^1.1.5",
@@ -21,7 +21,7 @@
     "next": "15.1.6",
     "next-auth": "^4.24.13",
     "nodemailer": "^7.0.13",
-    "prisma": "6.19.2",
+    "prisma": "6.4.1",
     "qrcode": "^1.5.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
