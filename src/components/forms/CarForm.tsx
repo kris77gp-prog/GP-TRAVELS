@@ -27,6 +27,7 @@ export default function CarForm({ car }: CarFormProps) {
     const isEditing = !!car;
     const [loading, setLoading] = useState(false);
     const [uploadMode, setUploadMode] = useState<'url' | 'file'>('file');
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const router = useRouter();
 
     const [previewUrl, setPreviewUrl] = useState(car?.image || "");
@@ -51,14 +52,20 @@ export default function CarForm({ car }: CarFormProps) {
 
     async function handleSubmit(formData: FormData) {
         setLoading(true);
+        setErrorMessage(null);
         try {
             if (isEditing) {
                 await updateCar(car.id, formData);
             } else {
                 await createCar(formData);
             }
-        } catch (error) {
-            console.error(error);
+        } catch (error: any) {
+            // Check if it's a Next.js redirect - this is intentional success!
+            if (error && error.digest && error.digest.startsWith('NEXT_REDIRECT')) {
+                throw error; // Let Next.js handle the redirection
+            }
+            console.error("Form Submission Error:", error);
+            setErrorMessage(error.message || "Something went wrong. Please check the form and try again.");
         } finally {
             setLoading(false);
         }
@@ -66,6 +73,13 @@ export default function CarForm({ car }: CarFormProps) {
 
     return (
         <form action={handleSubmit} className="space-y-8">
+            {errorMessage && (
+                <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-500 text-sm font-bold flex items-center gap-3 animate-in fade-in slide-in-from-top-4 duration-300">
+                    <X className="w-5 h-5 flex-shrink-0" />
+                    <p>{errorMessage}</p>
+                </div>
+            )}
+
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Main Content */}
                 <div className="lg:col-span-2 space-y-8">

@@ -13,6 +13,7 @@ import { sendResetEmail } from "./notifications";
 import { supabase, supabaseAdmin } from "./supabase";
 
 import { checkRateLimit } from "./ratelimit";
+import bcrypt from "bcryptjs";
 
 // --- Validation Schemas ---
 
@@ -80,6 +81,12 @@ async function saveFile(file: File): Promise<string> {
             const safeName = file.name.toLowerCase().replace(/[^a-z0-9.]/g, "-");
             const filename = `${Date.now()}-${safeName}`;
             
+            // SECURITY CHECK: Supabase Service Role Key format validation
+            const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+            if (serviceKey && serviceKey.startsWith('sb_secret_')) {
+                console.warn("CRITICAL: SUPABASE_SERVICE_ROLE_KEY appears to be a 'Project Secret' instead of a 'Service Role JWT'. Uploads may fail.");
+            }
+
             // Use Admin client if available, otherwise fallback to public client
             const client = supabaseAdmin || supabase;
             
@@ -91,21 +98,20 @@ async function saveFile(file: File): Promise<string> {
                 });
 
             if (error) {
-                console.error("Supabase Storage Error Details:", error);
-                throw new Error(`Supabase Upload Failed: ${error.message} (Check if your bucket "uploads" exists and your Service Role Key is correct)`);
+                console.error("Supabase Storage Error:", error);
+                throw new Error(`Upload Failed: ${error.message}${error.statusCode === '403' ? ' (Check bucket policies or use a valid Service Role Key)' : ''}`);
             }
 
-            // Get the public URL for the uploaded file
+            // Get the public URL
             const { data: { publicUrl } } = client.storage
                 .from("uploads")
                 .getPublicUrl(filename);
 
             return publicUrl;
         } catch (error: any) {
-            console.error("Supabase storage error:", error);
-            // In production, we MUST use cloud storage. Fallback to local only in dev if Supabase fails.
+            console.error("Supabase Cloud Storage Crash:", error);
             if (process.env.NODE_ENV === 'production') {
-                throw new Error(`Cloud storage upload failed: ${error.message || 'Unknown error'}`);
+                throw new Error(`Storage failure: ${error.message || 'Check your Supabase configuration in Vercel'}`);
             }
         }
     }
@@ -499,7 +505,6 @@ export async function resetPassword(formData: FormData) {
     }
 
     // 2. Update user password
-    const bcrypt = require("bcryptjs");
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await prisma.user.update({
@@ -555,17 +560,21 @@ export async function registerAdmin(formData: FormData) {
         throw new Error("Username or Email already registered");
     }
 
-    const bcrypt = require("bcryptjs");
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await prisma.user.create({
-        data: {
-            username,
-            email,
-            password: hashedPassword,
-            role: "admin"
-        }
-    });
+    try {
+        await prisma.user.create({
+            data: {
+                username,
+                email,
+                password: hashedPassword,
+                role: "admin"
+            }
+        });
+    } catch (dbError: any) {
+        console.error("Admin registration DB error:", dbError);
+        throw new Error(`Database error: ${dbError.message || 'Unable to create user'}`);
+    }
 
     return { success: true };
 }
