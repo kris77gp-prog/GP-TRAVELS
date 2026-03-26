@@ -1,0 +1,12 @@
+{
+  "id": "cmn5yc3cs0000lb04keaor3dn",
+  "title": "cochin",
+  "description": "very refreshing",
+  "destination": "cochin",
+  "image": "https://euyqgxdybmgxxftzohaq.supabase.co/storage/v1/object/public/uploads/1774437604340-cochin-beach.jpg",
+  "price": "1000",
+  "duration": "2 days / 1 night",
+  "featured": true,
+  "createdAt": "2026-03-25T11:20:05.710Z",
+  "updatedAt": "2026-03-26T04:29:26.958Z"
+}
