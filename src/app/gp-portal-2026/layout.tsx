@@ -53,7 +53,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             )}>
                 <div className="p-8">
                     <Link href="/gp-portal-2026" className="flex items-center gap-2 group">
-                        <div className="relative h-12 w-auto flex items-center justify-start group-hover:scale-105 transition-transform duration-300">
+                        <div className="relative h-12 min-w-[150px] flex items-center justify-start group-hover:scale-105 transition-transform duration-300 shrink-0">
                             <img 
                                 src="/logo.png" 
                                 alt="GP Tours & Travels Logo" 
