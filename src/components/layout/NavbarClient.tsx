@@ -45,11 +45,11 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
         >
             <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 relative z-[110]">
                 <Link href="/" className="flex items-center gap-2 group">
-                    <div className="relative h-12 min-w-[150px] flex items-center justify-start group-hover:scale-105 transition-transform duration-300 shrink-0">
+                    <div className="relative h-20 min-w-[180px] flex items-center justify-start group-hover:scale-110 transition-transform duration-500 shrink-0">
                         <img 
                             src="/logo.png" 
                             alt="GP Tours & Travels Logo" 
-                            className="h-full w-auto object-contain drop-shadow-[0_0_15px_rgba(255,165,0,0.5)]"
+                            className="h-full w-auto object-contain drop-shadow-[0_0_20px_rgba(255,165,0,0.6)] brightness-110"
                         />
                     </div>
                 </Link>
