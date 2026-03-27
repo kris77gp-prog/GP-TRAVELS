@@ -52,13 +52,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 isSidebarOpen ? "translate-x-0" : "-translate-x-full"
             )}>
                 <div className="p-8">
-                    <Link href="/" className="flex items-center gap-2 group">
-                        <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white group-hover:rotate-12 transition-transform duration-300">
-                            <MapPin className="w-5 h-5" />
+                    <Link href="/gp-portal-2026" className="flex items-center gap-2 group">
+                        <div className="relative h-12 w-auto flex items-center justify-start group-hover:scale-105 transition-transform duration-300">
+                            <img 
+                                src="/logo.png" 
+                                alt="GP Tours & Travels Logo" 
+                                className="h-full w-auto object-contain drop-shadow-[0_0_10px_rgba(255,165,0,0.3)]"
+                            />
                         </div>
-                        <span className="text-xl font-bold tracking-tight text-white">
-                            GP <span className="text-primary">Admin</span>
-                        </span>
                     </Link>
                 </div>
 

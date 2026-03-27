@@ -13,14 +13,14 @@ import {
     CheckCircle2,
     Upload,
     Link as LinkIcon,
-    Car
+    Car as CarIcon
 } from 'lucide-react';
-import { Car as CarType } from '@prisma/client';
+import type { Car } from '@prisma/client';
 import { createCar, updateCar } from '@/lib/actions';
 import { Button } from '@/components/ui/Button';
 
 interface CarFormProps {
-    car?: CarType;
+    car?: Car;
 }
 
 export default function CarForm({ car }: CarFormProps) {
@@ -117,7 +117,7 @@ export default function CarForm({ car }: CarFormProps) {
                 <div className="lg:col-span-2 space-y-8">
                     <div className="bg-slate-900/50 border border-white/5 p-8 rounded-[2rem] backdrop-blur-xl">
                         <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                            <Car className="w-5 h-5 text-primary" />
+                            <CarIcon className="w-5 h-5 text-primary" />
                             <span>Vehicle Information</span>
                         </h2>
 

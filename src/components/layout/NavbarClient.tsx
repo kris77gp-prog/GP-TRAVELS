@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Phone, MapPin, LogOut, LayoutDashboard } from 'lucide-react';
+import { Menu, X, Phone, LogOut, LayoutDashboard } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
@@ -45,12 +45,13 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
         >
             <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 relative z-[110]">
                 <Link href="/" className="flex items-center gap-2 group">
-                    <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white group-hover:rotate-12 transition-transform duration-300">
-                        <MapPin className="w-6 h-6" />
+                    <div className="relative h-12 w-auto flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                        <img 
+                            src="/logo.png" 
+                            alt="GP Tours & Travels Logo" 
+                            className="h-full w-auto object-contain drop-shadow-[0_0_15px_rgba(255,165,0,0.5)]"
+                        />
                     </div>
-                    <span className="text-2xl font-bold tracking-tight">
-                        GP <span className="text-primary">Tour</span>
-                    </span>
                 </Link>
 
                 {/* Desktop Nav */}

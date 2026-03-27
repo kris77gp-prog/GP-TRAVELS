@@ -32,13 +32,14 @@ export const Footer = async () => {
         <footer className="bg-slate-950 text-slate-400 pt-20 pb-10 px-6">
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                 <div className="col-span-1 md:col-span-1">
-                    <Link href="/" className="flex items-center gap-2 mb-6">
-                        <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
-                            <MapPin className="w-5 h-5" />
+                    <Link href="/" className="flex items-center gap-2 mb-6 group">
+                        <div className="relative h-16 w-40 flex items-center justify-start group-hover:scale-105 transition-transform duration-300">
+                            <img 
+                                src="/logo.png" 
+                                alt="GP Tours & Travels Logo" 
+                                className="h-full w-auto object-contain drop-shadow-[0_0_10px_rgba(255,165,0,0.3)]"
+                            />
                         </div>
-                        <span className="text-xl font-bold tracking-tight text-white">
-                            GP <span className="text-primary">Tour</span>
-                        </span>
                     </Link>
                     <p className="text-sm leading-relaxed mb-6">
                         {tagline}
