@@ -6,7 +6,6 @@ import { CONTACT_INFO } from '@/lib/data';
 import { getSiteSettings } from '@/lib/settings';
 
 export const Footer = async () => {
-    // Independent fetch for footer settings
     const settings = await getSiteSettings();
     
     const contact = {
@@ -14,6 +13,20 @@ export const Footer = async () => {
         phone: settings.phone || CONTACT_INFO.phone,
         email: settings.email || CONTACT_INFO.email
     };
+
+    const tagline = settings.footerTagline || "Connecting you to the most beautiful destinations around the world. Your trusted travel partner since 2015.";
+    const copyright = settings.footerCopyright || `© ${new Date().getFullYear()} GP Tour Agency. All rights reserved.`;
+
+    // Parse destinations from comma-separated string
+    const defaultDestinations = ["Swiss Alps", "Bali Islands", "Serengeti Safari", "Rome & Tokyo"];
+    const destinations = settings.footerDestinations
+        ? settings.footerDestinations.split(",").map((d: string) => d.trim()).filter(Boolean)
+        : defaultDestinations;
+
+    // Social links
+    const socialInstagram = settings.socialInstagram || "#";
+    const socialFacebook = settings.socialFacebook || "#";
+    const socialTwitter = settings.socialTwitter || "#";
 
     return (
         <footer className="bg-slate-950 text-slate-400 pt-20 pb-10 px-6">
@@ -28,16 +41,16 @@ export const Footer = async () => {
                         </span>
                     </Link>
                     <p className="text-sm leading-relaxed mb-6">
-                        Connecting you to the most beautiful destinations around the world. Your trusted travel partner since 2015.
+                        {tagline}
                     </p>
                     <div className="flex gap-4">
-                        <a href="#" className="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary hover:border-primary hover:text-white transition-all">
+                        <a href={socialInstagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary hover:border-primary hover:text-white transition-all">
                             <Instagram className="w-5 h-5" />
                         </a>
-                        <a href="#" className="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary hover:border-primary hover:text-white transition-all">
+                        <a href={socialFacebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary hover:border-primary hover:text-white transition-all">
                             <Facebook className="w-5 h-5" />
                         </a>
-                        <a href="#" className="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary hover:border-primary hover:text-white transition-all">
+                        <a href={socialTwitter} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center hover:bg-primary hover:border-primary hover:text-white transition-all">
                             <Twitter className="w-5 h-5" />
                         </a>
                     </div>
@@ -56,10 +69,11 @@ export const Footer = async () => {
                 <div>
                     <h4 className="text-white font-semibold mb-6">Destinations</h4>
                     <ul className="flex flex-col gap-4 text-sm">
-                        <li><Link href="/tours" className="hover:text-primary transition-colors">Swiss Alps</Link></li>
-                        <li><Link href="/tours" className="hover:text-primary transition-colors">Bali Islands</Link></li>
-                        <li><Link href="/tours" className="hover:text-primary transition-colors">Serengeti Safari</Link></li>
-                        <li><Link href="/tours" className="hover:text-primary transition-colors">Rome & Tokyo</Link></li>
+                        {destinations.map((dest: string, i: number) => (
+                            <li key={i}>
+                                <Link href="/tours" className="hover:text-primary transition-colors">{dest}</Link>
+                            </li>
+                        ))}
                     </ul>
                 </div>
 
@@ -83,7 +97,7 @@ export const Footer = async () => {
             </div>
 
             <div className="max-w-7xl mx-auto pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-                <p>© 2026 GP Tour Agency. All rights reserved.</p>
+                <p>{copyright}</p>
                 <div className="flex gap-6 items-center">
                     <Link href="/login" className="text-slate-600 hover:text-primary transition-colors">Admin Login</Link>
                     <a href="#" className="hover:text-white">Privacy Policy</a>

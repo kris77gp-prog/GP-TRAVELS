@@ -51,30 +51,49 @@ export default function CarForm({ car }: CarFormProps) {
     }, [filePreview]);
 
     async function handleSubmit(formData: FormData) {
+        console.log("[CLIENT_FORM] handleSubmit called");
+        for (let pair of formData.entries()) {
+            console.log(`[CLIENT_FORM] ${pair[0]}: ${pair[1] instanceof File ? `File(${pair[1].name})` : pair[1]}`);
+        }
+        
         setLoading(true);
         setErrorMessage(null);
         try {
+            console.log("[CLIENT_FORM] Form submitted, loading set to true.");
             let result;
             if (isEditing) {
+                console.log("[CLIENT_FORM] Updating vehicle with ID:", car.id);
                 result = await updateCar(car.id, formData);
             } else {
+                console.log("[CLIENT_FORM] Creating new vehicle");
                 result = await createCar(formData);
             }
 
-            if (result.success) {
-                router.push("/gp-portal-2026/cars");
+            console.log("[CLIENT_FORM] Server Action Result:", result);
+
+            if (result && result.success) {
+                console.log("[CLIENT_FORM] Success! Refreshing and navigating...");
+                // Note: Refresh first to ensure new data is ready for the navigation
                 router.refresh();
+                router.push("/gp-portal-2026/cars");
             } else {
-                setErrorMessage(result.error || "Failed to save vehicle details.");
+                const errorText = result?.error || "Failed to save vehicle details. Unknown server error.";
+                console.error("[CLIENT_FORM] Submission Error Reported:", errorText);
+                setErrorMessage(errorText);
+                // Scroll to error
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         } catch (error: any) {
-            // Check if it's a Next.js redirect - this is intentional success!
+            // Re-throw Next.js redirects
             if (error && error.digest && error.digest.startsWith('NEXT_REDIRECT')) {
-                throw error; // Let Next.js handle the redirection
+                console.log("[CLIENT_FORM] Detected standard Next.js redirect.");
+                throw error;
             }
-            console.error("Form Submission Error:", error);
-            setErrorMessage(error.message || "Something went wrong. Please check the form and try again.");
+            console.error("[CLIENT_FORM] Critical Submission Crash:", error);
+            setErrorMessage(error.message || "A network error occurred. Please try again.");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         } finally {
+            console.log("[CLIENT_FORM] Submission finished, loading set to false.");
             setLoading(false);
         }
     }
@@ -82,9 +101,14 @@ export default function CarForm({ car }: CarFormProps) {
     return (
         <form action={handleSubmit} className="space-y-8">
             {errorMessage && (
-                <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-500 text-sm font-bold flex items-center gap-3 animate-in fade-in slide-in-from-top-4 duration-300">
-                    <X className="w-5 h-5 flex-shrink-0" />
-                    <p>{errorMessage}</p>
+                <div className="p-5 bg-red-500/10 border border-red-500/30 rounded-2xl text-red-500 text-sm font-black flex items-start gap-4 animate-in fade-in slide-in-from-top-6 duration-500 shadow-2xl shadow-red-500/5">
+                    <div className="w-6 h-6 bg-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <X className="w-4 h-4 text-white" />
+                    </div>
+                    <div className="space-y-1">
+                        <p className="font-black uppercase tracking-widest text-[10px] opacity-70">Submission Error</p>
+                        <p className="leading-relaxed">{errorMessage}</p>
+                    </div>
                 </div>
             )}
 

@@ -19,7 +19,7 @@ import bcrypt from "bcryptjs";
 
 const TourSchema = z.object({
     title: z.string().min(3, "Title must be at least 3 characters"),
-    description: z.string().min(10, "Description must be at least 10 characters"),
+    description: z.string().default(""),
     destination: z.string().min(2, "Destination is required"),
     price: z.string().min(1, "Price is required"),
     duration: z.string().min(1, "Duration is required"),
@@ -46,17 +46,20 @@ function isRedirect(error: any) {
 
 const CarSchema = z.object({
     name: z.string().min(2, "Car name is required"),
-    details: z.string().min(10, "Details must be at least 10 characters"),
+    details: z.string().default(""),
     hourlyPrice: z.string().optional().nullable(),
 });
 
 // --- Helper Functions ---
 
 async function checkAuth() {
+    console.log("[AUTH_CHECK] Checking session...");
     const session = await getServerSession(authOptions);
     if (!session) {
+        console.error("[AUTH_CHECK] No session found.");
         throw new Error("Unauthorized: Please login to perform this action");
     }
+    console.log("[AUTH_CHECK] Session found for user:", session.user?.name);
     return session;
 }
 
@@ -64,16 +67,20 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 async function saveFile(file: File): Promise<string> {
+    console.log("[SAVE_FILE] Starting save for:", file.name, "type:", file.type, "size:", file.size);
     // Security: Validate file type and size
     if (file.size > MAX_FILE_SIZE) {
+        console.error("[SAVE_FILE] Size exceeded:", file.size);
         throw new Error("File size exceeds 5MB limit");
     }
     if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
+        console.error("[SAVE_FILE] Invalid type:", file.type);
         throw new Error("Only .jpg, .png and .webp formats are supported");
     }
 
     // --- Production Fix: Supabase Storage Support ---
     if (process.env.NEXT_PUBLIC_SUPABASE_URL && (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY)) {
+        console.log("[SAVE_FILE] Using Supabase Storage");
         try {
             const bytes = await file.arrayBuffer();
             const buffer = Buffer.from(bytes);
@@ -84,11 +91,12 @@ async function saveFile(file: File): Promise<string> {
             // SECURITY CHECK: Supabase Service Role Key format validation
             const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
             if (serviceKey && serviceKey.startsWith('sb_secret_')) {
-                console.warn("CRITICAL: SUPABASE_SERVICE_ROLE_KEY appears to be a 'Project Secret' instead of a 'Service Role JWT'. Uploads may fail.");
+                console.warn("[SAVE_FILE] CRITICAL: SUPABASE_SERVICE_ROLE_KEY appears to be a 'Project Secret' instead of a 'Service Role JWT'. Uploads may fail.");
             }
 
             // Use Admin client if available, otherwise fallback to public client
             const client = supabaseAdmin || supabase;
+            console.log("[SAVE_FILE] Using client:", !!supabaseAdmin ? "Admin" : "Public/Anon");
             
             const { data, error } = await client.storage
                 .from("uploads")
@@ -98,18 +106,20 @@ async function saveFile(file: File): Promise<string> {
                 });
 
             if (error) {
-                console.error("Supabase Storage Error:", error);
+                console.error("[SAVE_FILE] Supabase Storage Error:", error);
                 throw new Error(`Upload Failed: ${error.message}${error.statusCode === '403' ? ' (Check bucket policies or use a valid Service Role Key)' : ''}`);
             }
 
+            console.log("[SAVE_FILE] Upload success, getting public URL for:", filename);
             const { data: { publicUrl } } = client.storage
                 .from("uploads")
                 .getPublicUrl(filename);
 
             if (!publicUrl) throw new Error("Supabase failed to generate a public URL.");
+            console.log("[SAVE_FILE] Public URL generated:", publicUrl);
             return publicUrl;
         } catch (error: any) {
-            console.error("Supabase Cloud Storage Crash:", error);
+            console.error("[SAVE_FILE] Supabase Cloud Storage Crash:", error);
             // Critical: If cloud upload fails in production, we MUST STOP. we cannot fallback to local filesystem.
             throw new Error(`Storage failure: ${error.message || 'Check your Supabase configuration in Vercel'}`);
         }
@@ -117,6 +127,7 @@ async function saveFile(file: File): Promise<string> {
 
     // Fallback/Local Development: Save to public/uploads
     // NOTE: This will not work on Vercel deployment!
+    console.log("[SAVE_FILE] Falling back to local filesystem");
     if (process.env.NODE_ENV === 'production') {
         throw new Error("Storage configuration missing. Please ensure SUPABASE_SERVICE_ROLE_KEY is set in Vercel.");
     }
@@ -135,6 +146,7 @@ async function saveFile(file: File): Promise<string> {
     const filename = `${Date.now()}-${safeName}`;
     const path = join(uploadDir, filename);
 
+    console.log("[SAVE_FILE] Writing locally to:", path);
     await writeFile(path, buffer);
     return `/uploads/${filename}`;
 }
@@ -362,6 +374,7 @@ export async function logAdminAction(action: string, details: Record<string, any
 
 export async function createCar(formData: FormData) {
     try {
+        console.log("[CREATE_CAR] Full FormData Keys:", Array.from(formData.keys()));
         await checkAuth();
 
         const data = {
@@ -370,35 +383,53 @@ export async function createCar(formData: FormData) {
             hourlyPrice: formData.get("hourly-price") as string || null,
         };
 
-        const validated = CarSchema.parse(data);
+        console.log("[CREATE_CAR] Extracting data:", data);
 
+        const result = CarSchema.safeParse(data);
+        if (!result.success) {
+            const errorMessage = result.error.issues.map(i => `${i.path.join('.')}: ${i.message}`).join(", ");
+            console.error("[CREATE_CAR] Validation failed:", errorMessage);
+            return { success: false, error: errorMessage };
+        }
+
+        const validated = result.data;
         let imageUrl = formData.get("image-url") as string;
         const imageFile = formData.get("image-file") as File;
 
         if (imageFile && imageFile.size > 0) {
+            console.log("[CREATE_CAR] Saving file:", imageFile.name, "(size:", imageFile.size, ")");
             imageUrl = await saveFile(imageFile);
         }
 
-        await prisma.car.create({
+        console.log("[CREATE_CAR] Final image URL:", imageUrl);
+
+        const car = await prisma.car.create({
             data: {
                 ...validated,
                 image: imageUrl || "/placeholder-car.jpg",
             },
         });
 
+        console.log("[CREATE_CAR] Car created successfully:", car.id);
+
         revalidatePath("/gp-portal-2026/cars");
         revalidatePath("/cars");
         revalidatePath("/");
+        
         return { success: true };
     } catch (error: any) {
         if (isRedirect(error)) throw error;
-        console.error("Create Car Action Error:", error);
-        return { success: false, error: error.message || "Failed to create vehicle" };
+        console.error("[CREATE_CAR] Critical Action Error:", error);
+        return { 
+            success: false, 
+            error: error.message || "An unexpected error occurred during vehicle creation" 
+        };
     }
 }
 
 export async function updateCar(id: string, formData: FormData) {
     try {
+        console.log("[UPDATE_CAR] ID:", id, "| Keys:", Array.from(formData.keys()));
         await checkAuth();
 
         const data = {
@@ -407,12 +438,19 @@ export async function updateCar(id: string, formData: FormData) {
             hourlyPrice: formData.get("hourly-price") as string || null,
         };
 
-        const validated = CarSchema.parse(data);
+        const result = CarSchema.safeParse(data);
+        if (!result.success) {
+            const errorMessage = result.error.issues.map(i => `${i.path.join('.')}: ${i.message}`).join(", ");
+            console.error("[UPDATE_CAR] Validation failed:", errorMessage);
+            return { success: false, error: errorMessage };
+        }
 
+        const validated = result.data;
         let imageUrl = formData.get("image-url") as string;
         const imageFile = formData.get("image-file") as File;
 
         if (imageFile && imageFile.size > 0) {
+            console.log("[UPDATE_CAR] Saving new file:", imageFile.name);
             imageUrl = await saveFile(imageFile);
         }
 
@@ -426,13 +464,15 @@ export async function updateCar(id: string, formData: FormData) {
             data: updateData,
         });
 
+        console.log("[UPDATE_CAR] Success for ID:", id);
+
         revalidatePath("/gp-portal-2026/cars");
         revalidatePath("/cars");
         revalidatePath("/");
         return { success: true };
     } catch (error: any) {
         if (isRedirect(error)) throw error;
-        console.error("Update Car Action Error:", error);
+        console.error("[UPDATE_CAR] Critical Action Error:", error);
         return { success: false, error: error.message || "Failed to update vehicle" };
     }
 }

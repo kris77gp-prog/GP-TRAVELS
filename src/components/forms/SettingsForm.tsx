@@ -49,6 +49,24 @@ export const SettingsForm = ({ initialSettings }: { initialSettings: Record<stri
             ]
         },
         {
+            title: "Footer Content",
+            icon: Type,
+            fields: [
+                { key: "footerTagline", label: "Footer Tagline / Description", type: "textarea", icon: Type },
+                { key: "footerDestinations", label: "Destinations (comma separated)", type: "textarea", icon: MapPin },
+                { key: "footerCopyright", label: "Copyright Text", type: "text", icon: Type },
+            ]
+        },
+        {
+            title: "Social Media Links",
+            icon: MessageCircle,
+            fields: [
+                { key: "socialInstagram", label: "Instagram URL", type: "text", icon: MessageCircle },
+                { key: "socialFacebook", label: "Facebook URL", type: "text", icon: MessageCircle },
+                { key: "socialTwitter", label: "Twitter / X URL", type: "text", icon: MessageCircle },
+            ]
+        },
+        {
             title: "Map Integration",
             icon: MapPin,
             fields: [
