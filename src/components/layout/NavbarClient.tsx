@@ -40,7 +40,7 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
                 "fixed top-0 left-0 right-0 z-50 transition-all duration-500 gpu-boost",
                 (scrolled || isOpen || pathname !== "/") 
                     ? "bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200 dark:border-white/5 py-3 shadow-md text-slate-900 dark:text-white" 
-                    : "bg-transparent text-white"
+                    : "bg-gradient-to-b from-black/60 via-black/20 to-transparent text-white"
             )}
         >
             <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 relative z-[110]">
@@ -61,8 +61,12 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
                             key={link.name}
                             href={link.href}
                             className={cn(
-                                "text-sm font-medium transition-colors hover:text-primary",
-                                pathname === link.href ? "text-primary" : "text-muted-foreground"
+                                "text-[15px] font-bold tracking-wide transition-all duration-300 relative",
+                                pathname === link.href 
+                                    ? "text-primary after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-0.5 after:bg-primary" 
+                                    : (scrolled || isOpen || pathname !== "/")
+                                        ? "text-slate-600 dark:text-slate-400 hover:text-primary"
+                                        : "text-white hover:text-primary-foreground drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]"
                             )}
                         >
                             {link.name}
@@ -83,7 +87,12 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
                                 </Link>
                                 <button
                                     onClick={() => signOut({ callbackUrl: '/' })}
-                                    className="text-sm font-medium text-muted-foreground hover:text-red-500 transition-colors flex items-center gap-2"
+                                    className={cn(
+                                        "text-sm font-bold transition-colors flex items-center gap-2 hover:text-red-500",
+                                        (scrolled || isOpen || pathname !== "/")
+                                            ? "text-slate-600 dark:text-slate-400"
+                                            : "text-white hover:text-red-400 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+                                    )}
                                 >
                                     <LogOut className="w-4 h-4" />
                                     Logout
