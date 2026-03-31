@@ -35,9 +35,9 @@ export const Footer = async () => {
                     <Link href="/" className="flex items-center gap-2 mb-6 group">
                         <div className="relative h-16 w-40 flex items-center justify-start group-hover:scale-105 transition-transform duration-300">
                             <img 
-                                src="/logo.png" 
+                                src={settings.logoUrl || "/logo-v4.png"} 
                                 alt="GP Tours & Travels Logo" 
-                                className="h-full w-auto object-contain drop-shadow-[0_0_10px_rgba(255,165,0,0.3)]"
+                                className="h-full w-auto object-contain drop-shadow-[0_0_10px_rgba(249,115,22,0.3)]"
                             />
                         </div>
                     </Link>

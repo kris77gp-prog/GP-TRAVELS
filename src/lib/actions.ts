@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "./db";
 import { writeFile, mkdir } from "fs/promises";
@@ -94,9 +94,16 @@ async function saveFile(file: File): Promise<string> {
                 console.warn("[SAVE_FILE] CRITICAL: SUPABASE_SERVICE_ROLE_KEY appears to be a 'Project Secret' instead of a 'Service Role JWT'. Uploads may fail.");
             }
 
-            // Use Admin client if available, otherwise fallback to public client
+            // Use Admin client if available, otherwise FAIL HARD in production
+            if (!supabaseAdmin) {
+                console.error("[SAVE_FILE] CRITICAL: SUPABASE_SERVICE_ROLE_KEY is missing!");
+                if (process.env.NODE_ENV === 'production') {
+                    throw new Error("SUPABASE_SERVICE_ROLE_KEY (Service Role JWT) is missing in Vercel. Please add it and REDEPLOY. (Found: URL=" + process.env.NEXT_PUBLIC_SUPABASE_URL + ")");
+                }
+            }
+            
             const client = supabaseAdmin || supabase;
-            console.log("[SAVE_FILE] Using client:", !!supabaseAdmin ? "Admin" : "Public/Anon");
+            console.log("[SAVE_FILE] Client Selection:", !!supabaseAdmin ? "ADMIN (Service Role)" : "PUBLIC (Anon)");
             
             const { data, error } = await client.storage
                 .from("uploads")
@@ -303,9 +310,54 @@ export async function updateSiteSettings(settings: Record<string, string>) {
             })
         )
     );
-    revalidatePath("/");
-    revalidatePath("/contact");
-    revalidatePath("/layout");
+    revalidatePath("/", "layout");
+    revalidatePath("/contact", "page");
+    revalidatePath("/gp-portal-2026/settings", "page");
+}
+
+export async function saveSiteSettings(formData: FormData) {
+    try {
+        await checkAuth();
+
+        const logoFile = formData.get("logo-file") as File;
+        let logoUrl = formData.get("logo-url") as string;
+
+        if (logoFile && logoFile.size > 0) {
+            logoUrl = await saveFile(logoFile);
+        }
+
+        const settings: Record<string, string> = {};
+        for (let [key, value] of formData.entries()) {
+            if (key !== "logo-file" && key !== "logo-url" && typeof value === 'string') {
+                settings[key] = value;
+            }
+        }
+
+        if (logoUrl) {
+            settings["logoUrl"] = logoUrl;
+        }
+
+        await prisma.$transaction(
+            Object.entries(settings).map(([key, value]) =>
+                prisma.siteSettings.upsert({
+                    where: { key },
+                    update: { value },
+                    create: { key, value }
+                })
+            )
+        );
+
+        revalidatePath("/", "layout");
+        revalidatePath("/contact", "page");
+        revalidatePath("/tours", "page");
+        revalidatePath("/cars", "page");
+        revalidatePath("/gp-portal-2026/settings", "page");
+        
+        return { success: true, logoUrl };
+    } catch (error: any) {
+        console.error("[SAVE_SETTINGS] Error:", error);
+        return { success: false, error: error.message || "Failed to save settings" };
+    }
 }
 
 export async function createTestimonial(formData: FormData) {

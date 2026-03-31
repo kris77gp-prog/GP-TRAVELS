@@ -23,29 +23,28 @@ export const HeroSection = ({ settings }: HeroSectionProps) => {
                 we must treat it as a responsive element rather than a background-fill.
             */}
             <div className="absolute inset-0 z-0 flex items-center justify-center">
-                {/* Desktop: Standard Fill */}
+                {/* Desktop: Standard Fill with Brightness Boost */}
                 <Image
                     src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop"
                     alt="Travel Background"
                     fill
-                    className="hidden md:block object-cover scale-100 transition-opacity duration-700"
+                    className="hidden md:block object-cover scale-100 transition-opacity duration-700 brightness-[1.12]"
                     priority
                 />
                 
-                {/* Mobile: Focused Aspect (No Zoom, Full Visibility centered on Van) */}
-                <div className="md:hidden absolute inset-0 bg-slate-950">
+                {/* Mobile: Focused Aspect with Brightness Boost */}
+                <div className="md:hidden absolute inset-0 bg-black">
                     <Image
                         src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop"
                         alt="Travel Background Mobile"
                         fill
-                        className="object-cover object-[15%_bottom] scale-125"
+                        className="object-cover object-[15%_bottom] scale-125 brightness-[1.12]"
                         priority
                     />
                 </div>
 
-                {/* Overlays for legibility (Lightened) */}
-                <div className="absolute inset-0 bg-slate-950/10" />
-                <div className="absolute inset-0 bg-gradient-to-b from-slate-950/30 via-transparent to-slate-950/80" />
+                {/* Overlays for legibility (Minimal for maximum clarity) */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30" />
                 
                 {/* Bottom transition blend (Shadow/Fade to next section) */}
                 <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-background to-transparent z-20" />
@@ -80,7 +79,7 @@ export const HeroSection = ({ settings }: HeroSectionProps) => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-base md:text-xl text-slate-100 max-w-2xl mx-auto mb-8 md:mb-12 font-medium leading-relaxed drop-shadow-lg"
+                        className="text-base md:text-xl text-white max-w-3xl mx-auto mb-8 md:mb-12 font-bold leading-relaxed drop-shadow-[0_2px_15px_rgba(0,0,0,0.9)]"
                     >
                         {subtitle}
                     </motion.p>

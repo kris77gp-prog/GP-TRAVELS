@@ -3,12 +3,17 @@ import { unstable_cache } from 'next/cache';
 
 export const getSiteSettings = unstable_cache(
     async () => {
-        const settings = await prisma.siteSettings.findMany();
-        const settingsMap: Record<string, string> = {};
-        settings.forEach(s => {
-            settingsMap[s.key] = s.value;
-        });
-        return settingsMap;
+        try {
+            const settings = await prisma.siteSettings.findMany();
+            const settingsMap: Record<string, string> = {};
+            settings.forEach(s => {
+                settingsMap[s.key] = s.value;
+            });
+            return settingsMap;
+        } catch (error) {
+            console.error('Failed to fetch site settings:', error);
+            return {};
+        }
     },
     ['site-settings'],
     { tags: ['settings'] }

@@ -40,16 +40,21 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
                 "fixed top-0 left-0 right-0 z-50 transition-all duration-500 gpu-boost",
                 (scrolled || isOpen || pathname !== "/") 
                     ? "bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200 dark:border-white/5 py-3 shadow-md text-slate-900 dark:text-white" 
-                    : "bg-gradient-to-b from-black/60 via-black/20 to-transparent text-white"
+                    : "bg-gradient-to-b from-black/15 via-transparent to-transparent text-white"
             )}
         >
             <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 relative z-[110]">
                 <Link href="/" className="flex items-center gap-2 group">
-                    <div className="relative h-20 min-w-[180px] flex items-center justify-start group-hover:scale-110 transition-transform duration-500 shrink-0">
+                    <div className="relative h-20 min-w-[200px] flex items-center justify-start group-hover:scale-110 transition-transform duration-500 shrink-0">
                         <img 
-                            src="/logo.png" 
+                            src={settings.logoUrl || "/logo-v4.png"} 
                             alt="GP Tours & Travels Logo" 
-                            className="h-full w-auto object-contain drop-shadow-[0_0_20px_rgba(255,165,0,0.6)] brightness-110"
+                            className={cn(
+                                "h-full w-auto object-contain transition-all duration-500",
+                                (scrolled || isOpen || pathname !== "/") 
+                                ? "brightness-100 drop-shadow-[0_2px_8px_rgba(0,0,0,0.2)]" 
+                                : "filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]"
+                            )}
                         />
                     </div>
                 </Link>
