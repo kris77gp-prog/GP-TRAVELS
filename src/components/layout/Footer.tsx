@@ -37,7 +37,7 @@ export const Footer = async () => {
                             <img 
                                 src={settings.logoUrl || "/logo-v4.png"} 
                                 alt="GP Tours & Travels Logo" 
-                                className="h-full w-auto object-contain drop-shadow-[0_0_10px_rgba(249,115,22,0.3)]"
+                                className="h-full w-auto object-contain drop-shadow-[0_0_10px_rgba(249,115,22,0.3)] rounded-2xl"
                             />
                         </div>
                     </Link>

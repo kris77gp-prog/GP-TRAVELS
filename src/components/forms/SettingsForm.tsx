@@ -128,7 +128,7 @@ export const SettingsForm = ({ initialSettings }: { initialSettings: Record<stri
                             <img 
                                 src={previewUrl} 
                                 alt="Logo Preview" 
-                                className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-110" 
+                                className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-110 rounded-2xl" 
                             />
                             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <p className="text-white text-[10px] font-black uppercase tracking-tighter">Live Preview</p>

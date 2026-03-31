@@ -35,8 +35,9 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
     }, []);
 
     return (
-        <nav
-            className={cn(
+        <>
+            <nav
+                className={cn(
                 "fixed top-0 left-0 right-0 z-50 transition-all duration-500 gpu-boost",
                 (scrolled || isOpen || pathname !== "/") 
                     ? "bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200 dark:border-white/5 py-3 shadow-md text-slate-900 dark:text-white" 
@@ -50,7 +51,7 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
                             src={settings.logoUrl || "/logo-v4.png"} 
                             alt="GP Tours & Travels Logo" 
                             className={cn(
-                                "h-full w-auto object-contain transition-all duration-500",
+                                "h-full w-auto object-contain transition-all duration-500 rounded-2xl",
                                 (scrolled || isOpen || pathname !== "/") 
                                 ? "brightness-100 drop-shadow-[0_2px_8px_rgba(0,0,0,0.2)]" 
                                 : "filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]"
@@ -123,14 +124,15 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
                     {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </button>
             </div>
+        </nav>
 
-            {/* Mobile Nav Overlay */}
-            <div
-                className={cn(
-                    "fixed inset-0 bg-white/40 dark:bg-slate-950/40 backdrop-blur-2xl z-[100] md:hidden transition-all duration-500 ease-in-out px-4 pt-20 flex flex-col items-center gpu-boost",
-                    isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
-                )}
-            >
+        {/* Mobile Nav Overlay */}
+        <div
+            className={cn(
+                "fixed inset-0 bg-white dark:bg-slate-950 z-[100] md:hidden transition-all duration-500 ease-in-out px-4 pt-28 flex flex-col items-center gpu-boost",
+                isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
+            )}
+        >
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 rounded-full blur-[80px] pointer-events-none" />
 
                 <div className="relative w-full max-w-sm flex flex-col gap-5 text-center">
@@ -184,6 +186,6 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
                     </div>
                 </div>
             </div>
-        </nav>
+        </>
     );
 };
