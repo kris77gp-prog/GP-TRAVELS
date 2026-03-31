@@ -45,12 +45,12 @@ export const authOptions: NextAuthOptions = {
                         throw new Error("Too many login attempts. Please try again after 15 minutes.");
                     }
 
-                    // Look up user in DB by username or email
+                    // Look up user in DB by username or email (case-insensitive)
                     const user = await prisma.user.findFirst({
                         where: {
                             OR: [
-                                { username: credentials.username },
-                                { email: credentials.username }
+                                { username: { equals: credentials.username, mode: 'insensitive' } },
+                                { email: { equals: credentials.username, mode: 'insensitive' } }
                             ]
                         }
                     });
