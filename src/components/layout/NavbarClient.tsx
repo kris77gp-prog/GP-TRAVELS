@@ -146,7 +146,7 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
                                     "flex items-center justify-center h-14 rounded-2xl border transition-all duration-300 font-bold text-xs tracking-widest uppercase",
                                     pathname === link.href 
                                         ? "bg-primary text-white border-primary shadow-lg shadow-primary/20 scale-[1.02]" 
-                                        : "bg-slate-100 dark:bg-white border-slate-200 dark:border-white text-slate-900 dark:text-slate-900"
+                                        : "bg-white dark:bg-white border-slate-200 dark:border-white text-slate-900 dark:text-slate-900"
                                 )}
                                 onClick={() => setIsOpen(false)}
                             >
