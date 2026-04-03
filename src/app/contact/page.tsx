@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { ContactForm } from "@/components/sections/ContactForm";
+import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, MessageCircle, Clock, ShieldCheck, Zap, Sparkles } from "lucide-react";
 import { CONTACT_INFO } from "@/lib/data";
 import { getSiteSettings } from "@/lib/settings";
@@ -18,8 +19,8 @@ async function ContactContent() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Contact Details */}
             <div className="lg:col-span-1 space-y-8">
-                <div className="bg-white dark:bg-slate-900/50 p-8 md:p-10 rounded-[3rem] border border-slate-200 dark:border-slate-800 shadow-2xl shadow-primary/5 group">
-                    <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-10 tracking-tight">Contact Information</h3>
+                <div className="bg-white dark:bg-slate-900 p-8 md:p-12 rounded-[3.5rem] border border-slate-100 dark:border-white/5 shadow-[0_32px_64px_-16px_rgba(37,99,235,0.08)] group hover:-translate-y-2 transition-all duration-700">
+                    <h3 className="text-3xl font-black text-slate-900 dark:text-white mb-12 tracking-tight">Contact Information</h3>
                     
                     <div className="space-y-8">
                         <a 
@@ -71,7 +72,7 @@ async function ContactContent() {
                     </div>
                 </div>
 
-                <div className="bg-white dark:bg-slate-900/50 p-8 rounded-[3rem] border border-slate-200 dark:border-slate-800 shadow-2xl shadow-primary/5">
+                <div className="bg-white dark:bg-slate-900 p-8 rounded-[3.5rem] border border-slate-100 dark:border-white/5 shadow-[0_32px_64px_-16px_rgba(37,99,235,0.08)] group hover:-translate-y-2 transition-all duration-700">
                     <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-6 flex items-center gap-4 tracking-tight">
                         <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center">
                             <MapPin className="text-primary w-6 h-6" />
@@ -120,11 +121,11 @@ async function ContactContent() {
                             bg: "bg-emerald-50/50"
                         }
                     ].map((item, i) => (
-                        <div key={i} className={`p-6 rounded-[2rem] border border-slate-100 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm group hover:border-primary/20 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5`}>
-                            <div className={`w-12 h-12 ${item.bg} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                        <div key={i} className={`p-8 rounded-[2.5rem] border border-slate-100 dark:border-white/5 bg-white dark:bg-slate-900 shadow-xl shadow-primary/5 group hover:-translate-y-2 transition-all duration-500`}>
+                            <div className={`w-14 h-14 ${item.bg} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                                 {item.icon}
                             </div>
-                            <h4 className="text-sm font-black text-slate-900 dark:text-white mb-2 uppercase tracking-wider">{item.title}</h4>
+                            <h4 className="text-sm font-black text-slate-900 dark:text-white mb-3 uppercase tracking-widest">{item.title}</h4>
                             <p className="text-xs text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
                                 {item.desc}
                             </p>
@@ -138,15 +139,22 @@ async function ContactContent() {
 
 export default function ContactPage() {
     return (
-        <main className="min-h-screen pt-32 pb-24 px-6">
+        <main className="min-h-screen pt-40 pb-32 px-6 bg-slate-50/50 dark:bg-slate-950">
             <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-16">
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4 text-slate-900 dark:text-white">
-                        Get in <span className="text-primary">Touch</span>
-                    </h1>
-                    <p className="text-slate-500 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-medium">
-                        Have questions or ready to book your next adventure? <br className="hidden md:block" /> We're just a message or call away.
-                    </p>
+                <div className="text-center mb-20 relative">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 rounded-full blur-[100px] pointer-events-none opacity-50" />
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="relative z-10"
+                    >
+                        <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-6 text-slate-900 dark:text-white">
+                            Get in <span className="text-primary italic">Touch</span>
+                        </h1>
+                        <p className="text-slate-500 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
+                            Have questions or ready to book your next adventure? <br className="hidden md:block" /> We're just a message or call away.
+                        </p>
+                    </motion.div>
                 </div>
 
                 <Suspense fallback={<div className="grid grid-cols-1 lg:grid-cols-3 gap-12 animate-pulse"><div className="h-96 bg-slate-100 rounded-[3rem]" /><div className="lg:col-span-2 h-96 bg-slate-100 rounded-[3rem]" /></div>}>
