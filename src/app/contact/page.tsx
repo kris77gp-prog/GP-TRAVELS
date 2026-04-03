@@ -18,8 +18,8 @@ async function ContactContent() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Contact Details */}
             <div className="lg:col-span-1 space-y-8">
-                <div className="bg-white p-8 md:p-10 rounded-[3rem] border border-slate-200 shadow-2xl shadow-primary/5 group">
-                    <h3 className="text-2xl font-black text-slate-900 mb-10 tracking-tight">Contact Information</h3>
+                <div className="bg-white dark:bg-slate-900/50 p-8 md:p-10 rounded-[3rem] border border-slate-200 dark:border-slate-800 shadow-2xl shadow-primary/5 group">
+                    <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-10 tracking-tight">Contact Information</h3>
                     
                     <div className="space-y-8">
                         <a 
@@ -30,8 +30,8 @@ async function ContactContent() {
                                 <Phone className="w-7 h-7" />
                             </div>
                             <div>
-                                <p className="text-[10px] text-slate-400 uppercase font-black tracking-[0.2em] mb-1">Call Us</p>
-                                <p className="font-black text-xl text-slate-800 tracking-tight">{phone}</p>
+                                <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-black tracking-[0.2em] mb-1">Call Us</p>
+                                <p className="font-black text-xl text-slate-800 dark:text-slate-200 tracking-tight">{phone}</p>
                             </div>
                         </a>
 
@@ -44,8 +44,8 @@ async function ContactContent() {
                                 <MessageCircle className="w-7 h-7" />
                             </div>
                             <div>
-                                <p className="text-[10px] text-slate-400 uppercase font-black tracking-[0.2em] mb-1">WhatsApp</p>
-                                <p className="font-black text-xl text-slate-800 tracking-tight">Message Now</p>
+                                <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-black tracking-[0.2em] mb-1">WhatsApp</p>
+                                <p className="font-black text-xl text-slate-800 dark:text-slate-200 tracking-tight">Message Now</p>
                             </div>
                         </a>
 
@@ -54,8 +54,8 @@ async function ContactContent() {
                                 <Mail className="w-7 h-7" />
                             </div>
                             <div>
-                                <p className="text-[10px] text-slate-400 uppercase font-black tracking-[0.2em] mb-1">Email Us</p>
-                                <p className="font-black text-xl text-slate-800 tracking-tight">{email}</p>
+                                <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-black tracking-[0.2em] mb-1">Email Us</p>
+                                <p className="font-black text-xl text-slate-800 dark:text-slate-200 tracking-tight">{email}</p>
                             </div>
                         </div>
 
@@ -64,24 +64,24 @@ async function ContactContent() {
                                 <Clock className="w-7 h-7" />
                             </div>
                             <div>
-                                <p className="text-[10px] text-slate-400 uppercase font-black tracking-[0.2em] mb-1">Working Hours</p>
-                                <p className="font-black text-xl text-slate-800 tracking-tight italic text-slate-500 font-medium">Mon - Sat: 9AM - 6PM</p>
+                                <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-black tracking-[0.2em] mb-1">Working Hours</p>
+                                <p className="font-black text-xl text-slate-800 dark:text-slate-200 tracking-tight italic text-slate-500 font-medium">Mon - Sat: 9AM - 6PM</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-white p-8 rounded-[3rem] border border-slate-200 shadow-2xl shadow-primary/5">
-                    <h3 className="text-2xl font-black text-slate-900 mb-6 flex items-center gap-4 tracking-tight">
+                <div className="bg-white dark:bg-slate-900/50 p-8 rounded-[3rem] border border-slate-200 dark:border-slate-800 shadow-2xl shadow-primary/5">
+                    <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-6 flex items-center gap-4 tracking-tight">
                         <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center">
                             <MapPin className="text-primary w-6 h-6" />
                         </div>
                         Office Location
                     </h3>
-                    <p className="text-slate-500 mb-8 leading-relaxed font-medium pl-2">
+                    <p className="text-slate-500 dark:text-slate-400 mb-8 leading-relaxed font-medium pl-2">
                         {address}
                     </p>
-                    <div className="aspect-[16/10] w-full rounded-[2rem] overflow-hidden border border-slate-200 grayscale contrast-125 opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-700 shadow-inner">
+                    <div className="aspect-[16/10] w-full rounded-[2rem] overflow-hidden border border-slate-200 dark:border-slate-800 grayscale contrast-125 opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-700 shadow-inner">
                         <iframe
                             src={map}
                             width="100%"
@@ -120,12 +120,12 @@ async function ContactContent() {
                             bg: "bg-emerald-50/50"
                         }
                     ].map((item, i) => (
-                        <div key={i} className={`p-6 rounded-[2rem] border border-slate-100 bg-white/50 backdrop-blur-sm group hover:border-primary/20 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5`}>
+                        <div key={i} className={`p-6 rounded-[2rem] border border-slate-100 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm group hover:border-primary/20 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5`}>
                             <div className={`w-12 h-12 ${item.bg} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                                 {item.icon}
                             </div>
-                            <h4 className="text-sm font-black text-slate-900 mb-2 uppercase tracking-wider">{item.title}</h4>
-                            <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                            <h4 className="text-sm font-black text-slate-900 dark:text-white mb-2 uppercase tracking-wider">{item.title}</h4>
+                            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
                                 {item.desc}
                             </p>
                         </div>
@@ -141,10 +141,10 @@ export default function ContactPage() {
         <main className="min-h-screen pt-32 pb-24 px-6">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4">
+                    <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4 text-slate-900 dark:text-white">
                         Get in <span className="text-primary">Touch</span>
                     </h1>
-                    <p className="text-slate-500 text-lg md:text-xl max-w-2xl mx-auto font-medium">
+                    <p className="text-slate-500 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-medium">
                         Have questions or ready to book your next adventure? <br className="hidden md:block" /> We're just a message or call away.
                     </p>
                 </div>

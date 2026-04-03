@@ -29,7 +29,7 @@ export const ContactForm = () => {
     };
 
     return (
-        <div className="bg-white p-6 md:p-10 rounded-[2.5rem] border border-slate-200 shadow-2xl shadow-primary/5 relative overflow-hidden group">
+        <div className="bg-white dark:bg-slate-900/50 p-6 md:p-10 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-2xl shadow-primary/5 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] pointer-events-none" />
             
             <AnimatePresence mode="wait">
@@ -44,8 +44,8 @@ export const ContactForm = () => {
                         <div className="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
                             <CheckCircle2 className="w-10 h-10" />
                         </div>
-                        <h3 className="text-3xl font-bold mb-4">Message Sent!</h3>
-                        <p className="text-muted-foreground mb-8">
+                        <h3 className="text-3xl font-bold mb-4 text-slate-900 dark:text-white">Message Sent!</h3>
+                        <p className="text-muted-foreground dark:text-slate-400 mb-8">
                             Thank you for reaching out. Our team will contact you shortly to discuss your travel plans.
                         </p>
                         <Button onClick={() => setStatus('idle')} variant="outline">
@@ -92,7 +92,7 @@ export const ContactForm = () => {
                                         name="name"
                                         required
                                         placeholder="Viswajith"
-                                        className="w-full bg-slate-50 border border-slate-200 rounded-[1.5rem] px-6 py-4 outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-500 shadow-sm text-slate-900 font-bold placeholder:text-slate-300 text-sm"
+                                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-[1.5rem] px-6 py-4 outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-500 shadow-sm text-slate-900 dark:text-white font-bold placeholder:text-slate-300 dark:placeholder:text-slate-600 text-sm"
                                     />
                                     {/* Input Shine Effect */}
                                     <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-tr from-white/20 via-transparent to-transparent opacity-0 group-focus-within/field:opacity-100 pointer-events-none transition-opacity duration-700" />
@@ -116,7 +116,7 @@ export const ContactForm = () => {
                                         name="phone"
                                         required
                                         placeholder="+91 98765 43210"
-                                        className="w-full bg-slate-50 border border-slate-200 rounded-[1.5rem] px-6 py-4 outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all duration-500 shadow-sm text-slate-900 font-bold placeholder:text-slate-300 text-sm"
+                                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-[1.5rem] px-6 py-4 outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all duration-500 shadow-sm text-slate-900 dark:text-white font-bold placeholder:text-slate-300 dark:placeholder:text-slate-600 text-sm"
                                     />
                                 </div>
                             </motion.div>
@@ -139,7 +139,7 @@ export const ContactForm = () => {
                                     required
                                     rows={4}
                                     placeholder="I'm interested in the Alpine Adventure tour..."
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-[2rem] px-6 py-5 outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all duration-500 shadow-sm text-slate-900 font-bold placeholder:text-slate-300 resize-none text-sm"
+                                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-[2rem] px-6 py-5 outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all duration-500 shadow-sm text-slate-900 dark:text-white font-bold placeholder:text-slate-300 dark:placeholder:text-slate-600 resize-none text-sm"
                                 ></textarea>
                             </div>
                         </motion.div>
@@ -152,7 +152,7 @@ export const ContactForm = () => {
                             <Button
                                 type="submit"
                                 size="lg"
-                                className="w-full relative py-7 rounded-2xl font-black text-lg bg-gradient-to-r from-slate-900 to-slate-800 text-white hover:from-primary hover:to-blue-600 transition-all duration-700 shadow-2xl shadow-primary/20 overflow-hidden group/btn"
+                                className="w-full relative py-7 rounded-2xl font-black text-lg bg-gradient-to-r from-slate-900 to-slate-800 dark:from-primary dark:to-blue-600 text-white hover:from-primary hover:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 transition-all duration-700 shadow-2xl shadow-primary/20 overflow-hidden group/btn"
                                 disabled={status === 'loading'}
                             >
                                 {/* Button Mirror Shine */}
