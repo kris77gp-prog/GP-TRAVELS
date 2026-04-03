@@ -19,7 +19,7 @@ async function ContactContent() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Contact Details */}
             <div className="lg:col-span-1 space-y-8">
-                <div className="bg-white dark:bg-slate-900 p-8 md:p-12 rounded-[3.5rem] border border-slate-100 dark:border-white/5 shadow-[0_32px_64px_-16px_rgba(37,99,235,0.08)] group hover:-translate-y-2 transition-all duration-700">
+                <div className="bg-white dark:bg-slate-900/80 p-8 md:p-12 rounded-[3.5rem] border border-slate-100 dark:border-white/5 shadow-[0_32px_64px_-16px_rgba(37,99,235,0.08)] group hover:-translate-y-2 transition-all duration-700 backdrop-blur-xl">
                     <h3 className="text-3xl font-black text-slate-900 dark:text-white mb-12 tracking-tight">Contact Information</h3>
                     
                     <div className="space-y-8">
@@ -72,7 +72,7 @@ async function ContactContent() {
                     </div>
                 </div>
 
-                <div className="bg-white dark:bg-slate-900 p-8 rounded-[3.5rem] border border-slate-100 dark:border-white/5 shadow-[0_32px_64px_-16px_rgba(37,99,235,0.08)] group hover:-translate-y-2 transition-all duration-700">
+                <div className="bg-white dark:bg-slate-900/80 p-8 rounded-[3.5rem] border border-slate-100 dark:border-white/5 shadow-[0_32px_64px_-16px_rgba(37,99,235,0.08)] group hover:-translate-y-2 transition-all duration-700 backdrop-blur-xl">
                     <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-6 flex items-center gap-4 tracking-tight">
                         <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center">
                             <MapPin className="text-primary w-6 h-6" />
@@ -121,7 +121,7 @@ async function ContactContent() {
                             bg: "bg-emerald-50/50"
                         }
                     ].map((item, i) => (
-                        <div key={i} className={`p-8 rounded-[2.5rem] border border-slate-100 dark:border-white/5 bg-white dark:bg-slate-900 shadow-xl shadow-primary/5 group hover:-translate-y-2 transition-all duration-500`}>
+                        <div key={i} className={`p-8 rounded-[2.5rem] border border-slate-100 dark:border-white/5 bg-white dark:bg-slate-900/80 shadow-xl shadow-primary/5 group hover:-translate-y-2 transition-all duration-500 backdrop-blur-xl`}>
                             <div className={`w-14 h-14 ${item.bg} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                                 {item.icon}
                             </div>
