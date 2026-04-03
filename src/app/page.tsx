@@ -5,6 +5,7 @@ import { FeaturedTours } from "@/components/sections/FeaturedTours";
 import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { QuickContact } from "@/components/sections/QuickContact";
+import { TicketServices } from "@/components/sections/TicketServices";
 import { prisma } from "@/lib/db";
 import { getSiteSettings, getTestimonials } from "@/lib/settings";
 import { SectionSkeleton } from "@/components/ui/Skeletons";
@@ -50,6 +51,8 @@ export default function Home() {
       </Suspense>
 
       <WhyChooseUs />
+
+      <TicketServices />
 
       <Suspense fallback={<div className="h-96" />}>
         <TestimonialsData />
