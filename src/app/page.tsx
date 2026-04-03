@@ -10,7 +10,7 @@ import { prisma } from "@/lib/db";
 import { getSiteSettings, getTestimonials } from "@/lib/settings";
 import { SectionSkeleton } from "@/components/ui/Skeletons";
 
-export const revalidate = 3600; // revalidate at most every hour
+export const revalidate = 0; // Disable cache to show fresh content instantly
 
 async function FeaturedToursData() {
     const tours = await prisma.tour.findMany({
