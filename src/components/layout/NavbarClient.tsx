@@ -9,6 +9,7 @@ import { useSession, signOut } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
 import { CONTACT_INFO } from '@/lib/data';
+import { TravelBot } from '@/components/chat/TravelBot';
 
 const NAV_LINKS = [
     { name: 'Home', href: '/' },
@@ -198,6 +199,7 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
                     </div>
                 </div>
             )}
+            <TravelBot />
         </>
     );
 };
