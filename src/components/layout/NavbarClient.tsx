@@ -150,50 +150,51 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
                     </button>
                 </div>
 
-                <div className="pt-8 w-full max-w-sm flex flex-col gap-6 text-center">
-                    <div className="grid grid-cols-2 gap-3 mb-2">
-                        {NAV_LINKS.map((link, i) => (
-                            <Link
-                                key={link.name}
-                                href={link.href}
-                                style={{ transitionDelay: `${i * 30}ms` }}
-                                className={cn(
-                                    "flex items-center justify-center h-14 rounded-2xl border transition-all duration-300 font-bold text-xs tracking-widest uppercase",
-                                    pathname === link.href 
-                                        ? "bg-primary text-white border-primary shadow-lg shadow-primary/20 scale-[1.02]" 
-                                        : "bg-white border-slate-100 text-slate-900 shadow-sm"
-                                )}
-                            >
-                                {link.name}
-                            </Link>
-                        ))}
+                <div className="pt-8 w-full max-w-sm flex flex-col gap-8 text-center relative z-[300] pointer-events-auto">
+                    <div className="bg-slate-50/50 dark:bg-white/5 p-6 rounded-[2rem] border border-slate-100 dark:border-white/5 shadow-inner">
+                        <div className="grid grid-cols-2 gap-4">
+                            {NAV_LINKS.map((link, i) => (
+                                <Link
+                                    key={link.name}
+                                    href={link.href}
+                                    className={cn(
+                                        "flex items-center justify-center h-16 rounded-2xl border transition-all duration-300 font-black text-[13px] tracking-widest uppercase shadow-sm",
+                                        pathname === link.href 
+                                            ? "bg-primary text-white border-primary shadow-lg shadow-primary/30 scale-[1.05]" 
+                                            : "bg-white border-slate-200 text-slate-900 active:scale-95"
+                                    )}
+                                >
+                                    {link.name}
+                                </Link>
+                            ))}
+                        </div>
+
+                        {session && (
+                            <div className="flex flex-col gap-4 mt-6 pt-6 border-t border-slate-200 dark:border-white/10">
+                                <Link
+                                    href="/gp-portal-2026"
+                                    className="h-16 flex items-center justify-center gap-3 rounded-2xl bg-primary text-white font-black text-[13px] uppercase tracking-[0.2em] shadow-lg shadow-primary/20"
+                                >
+                                    <LayoutDashboard className="w-5 h-5" />
+                                    Admin Panel
+                                </Link>
+                                <button
+                                    onClick={() => {
+                                        signOut({ callbackUrl: '/' });
+                                        setIsOpen(false);
+                                    }}
+                                    className="h-14 flex items-center justify-center gap-3 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-500 font-black text-[13px] uppercase tracking-[0.2em]"
+                                >
+                                    <LogOut className="w-5 h-5" />
+                                    Sign Out
+                                </button>
+                            </div>
+                        )}
                     </div>
 
-                    {session && (
-                        <div className="flex flex-col gap-3 py-4 border-y border-slate-200/50 dark:border-white/5">
-                            <Link
-                                href="/gp-portal-2026"
-                                className="h-14 flex items-center justify-center gap-3 rounded-2xl bg-primary/10 border border-primary/20 text-primary font-bold text-xs uppercase tracking-[0.2em] transition-all hover:bg-primary/20"
-                            >
-                                <LayoutDashboard className="w-4 h-4" />
-                                Admin Panel
-                            </Link>
-                            <button
-                                onClick={() => {
-                                    signOut({ callbackUrl: '/' });
-                                    setIsOpen(false);
-                                }}
-                                className="h-12 flex items-center justify-center gap-3 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-500 font-bold text-xs uppercase tracking-[0.2em]"
-                            >
-                                <LogOut className="w-4 h-4" />
-                                Sign Out
-                            </button>
-                        </div>
-                    )}
-
                     <div className="mt-2">
-                        <Button href={`tel:${phone}`} size="lg" className="w-full h-16 rounded-[1.5rem] text-sm font-black uppercase tracking-[0.3em] shadow-xl shadow-primary/10">
-                            <Phone className="w-4 h-4 mr-2" />
+                        <Button href={`tel:${phone}`} size="lg" className="w-full h-20 rounded-[2rem] text-sm font-black uppercase tracking-[0.3em] shadow-2xl shadow-primary/20">
+                            <Phone className="w-5 h-5 mr-3" />
                             Direct Call
                         </Button>
                     </div>
