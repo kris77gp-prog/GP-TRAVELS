@@ -40,6 +40,7 @@ export default function RootLayout({
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#f97316" />
+        <meta name="google-site-verification" content="wjcDMXNI74xDU2PI5VUWWRo3gUqneGdtI6s0ftNGc2U" />
       </head>
       <body className={`${outfit.variable} antialiased`}>
         <NextAuthProvider>
