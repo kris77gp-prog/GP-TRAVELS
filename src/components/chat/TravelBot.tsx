@@ -96,14 +96,14 @@ export const TravelBot = () => {
     };
 
     return (
-        <div className="fixed bottom-6 right-6 z-[1000] font-sans">
+        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[1000] font-sans">
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
                         initial={{ opacity: 0, y: 20, scale: 0.95, filter: 'blur(10px)' }}
                         animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                         exit={{ opacity: 0, y: 20, scale: 0.95, filter: 'blur(10px)' }}
-                        className="mb-4 w-[350px] sm:w-[400px] h-[500px] bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] border border-slate-100 dark:border-white/10 flex flex-col overflow-hidden backdrop-blur-xl"
+                        className="mb-4 w-[calc(100vw-32px)] sm:w-[400px] h-[55vh] sm:h-[500px] bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] border border-slate-100 dark:border-white/10 flex flex-col overflow-hidden backdrop-blur-xl"
                     >
                         {/* Header */}
                         <div className="bg-primary p-6 text-white flex items-center justify-between shadow-lg">
