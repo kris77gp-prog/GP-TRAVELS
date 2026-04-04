@@ -34,16 +34,15 @@ export const Footer = async () => {
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                 <div className="col-span-1 md:col-span-1">
                     <Link href="/" className="flex items-center gap-2 mb-6 group">
-                        <div className="relative h-16 w-40 flex items-center justify-start group-hover:scale-105 transition-transform duration-300">
-                        <div className="h-10 w-40 relative">
+                        <div className="relative h-16 w-44 group-hover:scale-105 transition-transform duration-300">
                             <Image 
                                 src={settings.logoUrl || "/logo-v4.png"} 
-                                alt="Logo" 
+                                alt="GP Tours & Travels Logo" 
                                 fill
-                                sizes="160px"
-                                className="object-contain rounded-xl brightness-0 invert" 
+                                sizes="176px"
+                                className="object-contain drop-shadow-[0_0_15px_rgba(249,115,22,0.4)] rounded-2xl brightness-0 invert"
+                                priority
                             />
-                        </div>
                         </div>
                     </Link>
                     <p className="text-sm leading-relaxed mb-6">
