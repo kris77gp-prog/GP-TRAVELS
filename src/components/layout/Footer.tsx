@@ -1,6 +1,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { MapPin, Phone, Mail, Instagram, Facebook, Twitter } from 'lucide-react';
 import { CONTACT_INFO } from '@/lib/data';
 import { getSiteSettings } from '@/lib/settings';
@@ -34,11 +35,15 @@ export const Footer = async () => {
                 <div className="col-span-1 md:col-span-1">
                     <Link href="/" className="flex items-center gap-2 mb-6 group">
                         <div className="relative h-16 w-40 flex items-center justify-start group-hover:scale-105 transition-transform duration-300">
-                            <img 
+                        <div className="h-10 w-40 relative">
+                            <Image 
                                 src={settings.logoUrl || "/logo-v4.png"} 
-                                alt="GP Tours & Travels Logo" 
-                                className="h-full w-auto object-contain drop-shadow-[0_0_10px_rgba(249,115,22,0.3)] rounded-2xl"
+                                alt="Logo" 
+                                fill
+                                sizes="160px"
+                                className="object-contain rounded-xl brightness-0 invert" 
                             />
+                        </div>
                         </div>
                     </Link>
                     <p className="text-sm leading-relaxed mb-6">

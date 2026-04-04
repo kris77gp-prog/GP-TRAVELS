@@ -102,10 +102,12 @@ export const Testimonials = ({ testimonials }: TestimonialsProps) => {
                                 <div className="flex items-center gap-5 mt-auto">
                                     {current.image ? (
                                         <div className="w-16 h-16 relative rounded-2xl overflow-hidden shadow-xl bg-slate-100 dark:bg-slate-800">
-                                            <img
+                                            <Image
                                                 src={current.image}
                                                 alt={current.name}
-                                                className="w-full h-full object-cover"
+                                                fill
+                                                sizes="64px"
+                                                className="object-cover"
                                             />
                                         </div>
                                     ) : (

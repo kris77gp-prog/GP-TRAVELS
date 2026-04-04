@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Phone, LogOut, LayoutDashboard } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
@@ -149,8 +150,15 @@ export const NavbarClient = ({
                 >
                     {/* Mobile Header Inside Overlay */}
                     <div className="w-full flex items-center justify-between mb-12 relative z-[1010]">
-                        <div className="h-10 w-auto">
-                            <img src={settings.logoUrl || "/logo-v4.png"} alt="Logo" className="h-full w-auto object-contain rounded-xl" />
+                        <div className="h-10 w-32 relative">
+                            <Image 
+                                src={settings.logoUrl || "/logo-v4.png"} 
+                                alt="Logo" 
+                                fill
+                                sizes="130px"
+                                className="object-contain rounded-xl" 
+                                priority
+                            />
                         </div>
                         <button 
                             onClick={() => setIsOpen(false)}
