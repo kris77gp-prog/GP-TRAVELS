@@ -16,8 +16,9 @@ export const HeroSection = ({ settings }: HeroSectionProps) => {
     const subtitle = settings.heroSubtitle || "Embark on unforgettable journeys with our curated tour packages. From serene mountain peaks to vibrant cityscapes, we bring the world to you.";
 
     return (
-        <section className="relative min-h-[70vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-0 gpu-boost bg-slate-950">
+        <section className="relative min-h-[60vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-0 gpu-boost bg-slate-100 dark:bg-slate-950 transition-colors duration-500">
             <div className="absolute inset-0 z-0 flex items-center justify-center">
+                {/* Desktop: Standard Fill with Brightness Boost */}
                 <Image
                     src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop"
                     alt="Travel Background"
@@ -26,14 +27,17 @@ export const HeroSection = ({ settings }: HeroSectionProps) => {
                     priority
                 />
                 
-                <div className="md:hidden absolute inset-0 bg-black">
-                    <Image
-                        src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop"
-                        alt="Travel Background Mobile"
-                        fill
-                        className="object-cover object-[25%_center] brightness-[1.1]"
-                        priority
-                    />
+                {/* Mobile: FULL IMAGE (Contain) mode for maximum clarity and no cropping */}
+                <div className="md:hidden absolute inset-0 bg-slate-100 dark:bg-slate-950 flex items-center justify-center overflow-hidden">
+                    <div className="relative w-full aspect-[4/3] scale-110">
+                        <Image
+                            src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop"
+                            alt="Travel Background Mobile"
+                            fill
+                            className="object-contain"
+                            priority
+                        />
+                    </div>
                 </div>
 
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30" />
