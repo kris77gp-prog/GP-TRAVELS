@@ -49,7 +49,10 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
                     : "bg-gradient-to-b from-black/15 via-transparent to-transparent text-white"
             )}
         >
-            <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 relative z-[110]">
+            <div className={cn(
+                "max-w-7xl mx-auto flex items-center justify-between px-6 py-4 relative z-[110]",
+                isOpen && "hidden md:flex"
+            )}>
                 <Link href="/" className="flex items-center gap-2 group">
                     <div className="relative h-20 min-w-[200px] flex items-center justify-start group-hover:scale-110 transition-transform duration-500 shrink-0">
                         <img 
