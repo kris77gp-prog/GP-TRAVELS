@@ -78,9 +78,9 @@ export const TESTIMONIALS: Testimonial[] = [
 ];
 
 export const CONTACT_INFO = {
-    phone: "+919876543210",
-    whatsapp: "919876543210",
-    email: "info@gptravels.com",
-    address: "123 Travel Lane, Adventure City, World",
-    googleMapsEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3499.012543202!2d77.2090212!3d28.6139391!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x52c2b7494e204d!2sIndia%20Gate!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
+    phone: "+919747009309",
+    whatsapp: "919747009309",
+    email: "info@gptourstravel.com",
+    address: "Kerala, India",
+    googleMapsEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15668.618641913!2d75.7663!3d11.2588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba65938563d4747%3A0x321592748acc6753!2sCalicut%2C%20Kerala!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
 };

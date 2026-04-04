@@ -50,6 +50,6 @@ export const getCars = unstable_cache(
 );
 
 export const CONTACT_INFO = {
-    phone: '+1234567890',
-    whatsapp: '+1234567890',
+    phone: '+919747009309',
+    whatsapp: '919747009309',
 };
