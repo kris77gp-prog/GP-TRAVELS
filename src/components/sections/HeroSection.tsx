@@ -17,13 +17,7 @@ export const HeroSection = ({ settings }: HeroSectionProps) => {
 
     return (
         <section className="relative min-h-[70vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-0 gpu-boost bg-slate-950">
-            {/* 
-                THE "FULL IMAGE" SOLUTION:
-                To see the COMPLETE image (no cropping) on a vertical phone, 
-                we must treat it as a responsive element rather than a background-fill.
-            */}
             <div className="absolute inset-0 z-0 flex items-center justify-center">
-                {/* Desktop: Standard Fill with Brightness Boost */}
                 <Image
                     src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop"
                     alt="Travel Background"
@@ -32,7 +26,6 @@ export const HeroSection = ({ settings }: HeroSectionProps) => {
                     priority
                 />
                 
-                {/* Mobile: Focused Aspect with Brightness Boost */}
                 <div className="md:hidden absolute inset-0 bg-black">
                     <Image
                         src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop"
@@ -43,10 +36,7 @@ export const HeroSection = ({ settings }: HeroSectionProps) => {
                     />
                 </div>
 
-                {/* Overlays for legibility (Minimal for maximum clarity) */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30" />
-                
-                {/* Bottom transition blend (Shadow/Fade to next section) */}
                 <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-background to-transparent z-20" />
             </div>
 
@@ -104,6 +94,19 @@ export const HeroSection = ({ settings }: HeroSectionProps) => {
                         </Button>
                     </motion.div>
                 </div>
+
+                {/* Animated Scroll Prompt */}
+                <motion.div 
+                    initial={{ opacity: 0, y: 0 }}
+                    animate={{ opacity: 1, y: [0, 10, 0] }}
+                    transition={{ delay: 1.5, duration: 2, repeat: Infinity }}
+                    className="absolute bottom-32 left-0 right-0 z-30 flex flex-col items-center justify-center gap-2 pointer-events-none"
+                >
+                    <span className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.4em] text-white/60 drop-shadow-md">
+                        Scroll to book Air, Train & Bus
+                    </span>
+                    <div className="w-0.5 h-12 bg-gradient-to-b from-secondary via-secondary/50 to-transparent rounded-full shadow-[0_0_15px_rgba(251,146,60,0.5)]" />
+                </motion.div>
 
                 {/* Stats Grid */}
                 <div className="w-full pb-12 md:pb-0 md:absolute md:bottom-8 md:left-0 md:right-0 z-20">

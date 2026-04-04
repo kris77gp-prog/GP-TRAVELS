@@ -159,7 +159,7 @@ export const TicketServices = () => {
 
                             <div className="p-8 space-y-4 bg-slate-50/50 dark:bg-slate-900/50">
                                 <a 
-                                    href={`https://wa.me/${CONTACT_INFO.whatsapp}?text=Hi GP Travels, I would like to book ${selectedService.title}. Please provide more information.`}
+                                    href={`https://wa.me/919747009309?text=Hi GP Travels, I would like to book ${selectedService.title}. Please provide more information.`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center justify-between p-6 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-white/5 hover:border-emerald-500 transition-all group shadow-sm hover:shadow-emerald-500/10"
@@ -170,14 +170,14 @@ export const TicketServices = () => {
                                         </div>
                                         <div>
                                             <p className="font-black text-slate-900 dark:text-white uppercase tracking-widest text-sm mb-1">WhatsApp Us</p>
-                                            <p className="text-xs text-slate-500 font-medium">Instant & Reliable</p>
+                                            <p className="text-xs text-slate-500 font-medium text-emerald-600 font-bold tracking-tight">Direct to 9747009309</p>
                                         </div>
                                     </div>
                                     <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-emerald-500 group-hover:translate-x-2 transition-all" />
                                 </a>
 
                                 <a 
-                                    href={`tel:${CONTACT_INFO.phone}`}
+                                    href={`tel:+919747009309`}
                                     className="flex items-center justify-between p-6 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-white/5 hover:border-primary transition-all group shadow-sm hover:shadow-primary/10"
                                 >
                                     <div className="flex items-center gap-6">
@@ -186,7 +186,7 @@ export const TicketServices = () => {
                                         </div>
                                         <div>
                                             <p className="font-black text-slate-900 dark:text-white uppercase tracking-widest text-sm mb-1">Call Now</p>
-                                            <p className="text-xs text-slate-500 font-medium">Talk to an Expert</p>
+                                            <p className="text-xs text-slate-500 font-medium font-bold text-primary tracking-tight">Talk to 9747009309</p>
                                         </div>
                                     </div>
                                     <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-primary group-hover:translate-x-2 transition-all" />
