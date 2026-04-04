@@ -31,7 +31,7 @@ export const HeroSection = ({ settings }: HeroSectionProps) => {
                         src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop"
                         alt="Travel Background Mobile"
                         fill
-                        className="object-cover object-[15%_bottom] scale-125 brightness-[1.12]"
+                        className="object-cover object-[25%_center] brightness-[1.1]"
                         priority
                     />
                 </div>
