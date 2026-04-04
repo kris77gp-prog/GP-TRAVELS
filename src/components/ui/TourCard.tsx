@@ -22,11 +22,14 @@ export const TourCard = ({ tour }: { tour: Tour }) => {
             {/* Mirror Shine Effect */}
             <div className="absolute top-0 -inset-full h-full w-1/2 z-20 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white/20 opacity-0 group-hover:opacity-100 group-hover:animate-shine pointer-events-none" />
 
-            <div className="relative h-72 w-full overflow-hidden">
-                <img
+            <div className="relative h-72 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+                <Image
                     src={tour.image}
                     alt={tour.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
+                    priority={false}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-40" />
                 

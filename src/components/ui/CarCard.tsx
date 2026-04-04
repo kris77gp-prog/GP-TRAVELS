@@ -25,11 +25,14 @@ export const CarCard = ({ car, settings }: CarCardProps) => {
             transition={{ duration: 0.5 }}
             className="group relative bg-[#0f172a]/50 backdrop-blur-xl border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-primary/30 transition-all duration-500"
         >
-            <div className="relative h-72 w-full overflow-hidden">
-                <img
+            <div className="relative h-72 w-full overflow-hidden bg-[#0f172a]">
+                <Image
                     src={car.image || "/placeholder-car.jpg"}
                     alt={car.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    priority={false}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/80 via-[#0f172a]/10 to-transparent opacity-50" />
                 
