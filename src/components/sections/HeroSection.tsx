@@ -98,14 +98,21 @@ export const HeroSection = ({ settings }: HeroSectionProps) => {
                 {/* Animated Scroll Prompt */}
                 <motion.div 
                     initial={{ opacity: 0, y: 0 }}
-                    animate={{ opacity: 1, y: [0, 10, 0] }}
+                    animate={{ opacity: 1, y: [0, 8, 0] }}
                     transition={{ delay: 1.5, duration: 2, repeat: Infinity }}
-                    className="absolute bottom-32 left-0 right-0 z-30 flex flex-col items-center justify-center gap-2 pointer-events-none"
+                    className="absolute bottom-40 md:bottom-32 left-0 right-0 z-[40] flex flex-col items-center justify-center gap-3 pointer-events-none"
                 >
-                    <span className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.4em] text-white/60 drop-shadow-md">
+                    <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.5em] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,1)] bg-black/20 px-4 py-1 rounded-full backdrop-blur-sm">
                         Scroll to book Air, Train & Bus
                     </span>
-                    <div className="w-0.5 h-12 bg-gradient-to-b from-secondary via-secondary/50 to-transparent rounded-full shadow-[0_0_15px_rgba(251,146,60,0.5)]" />
+                    <div className="flex flex-col items-center">
+                        <div className="w-1 h-10 bg-gradient-to-b from-secondary to-transparent rounded-full shadow-[0_0_20px_rgba(251,146,60,0.8)]" />
+                        <div className="mt-[-4px] animate-bounce">
+                            <svg className="w-6 h-6 text-secondary drop-shadow-[0_0_10px_rgba(251,146,60,0.5)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </div>
                 </motion.div>
 
                 {/* Stats Grid */}
