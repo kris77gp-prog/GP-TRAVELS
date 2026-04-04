@@ -14,12 +14,15 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "GP Travels | Premium Travel Experiences",
-  description: "Explore amazing destinations with GP Travels, your trusted partner for unforgettable journeys.",
+  title: "GP Tours & Travels | Premium Kerala Tour Packages & Ticket Booking",
+  description: "Experience Kerala with GP Tours & Travels. We offer luxury tour packages, domestic & international air tickets, train & bus bookings, and premium car rentals.",
+  keywords: "GP Tours, GP Travels, Kerala Tour Packages, Air Ticket Booking Kerala, Train Ticket Booking, Bus Booking, Luxury Car Rental Kerala, GP Travels Kerala",
   openGraph: {
-    title: "GP Travels | Premium Travel Experiences",
-    description: "Explore amazing destinations with GP Travels, your trusted partner for unforgettable journeys.",
+    title: "GP Tours & Travels | Premium Travel Experiences",
+    description: "Book your complete journey with GP Tours & Travels. Luxury Kerala tours and seamless ticket bookings.",
     images: ["/og-image.jpg"],
+    url: 'https://www.gptourstravel.com',
+    siteName: 'GP Tours & Travels',
   },
 };
 
