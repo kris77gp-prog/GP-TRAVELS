@@ -34,11 +34,16 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Close mobile menu when pathname changes
+    useEffect(() => {
+        setIsOpen(false);
+    }, [pathname]);
+
     return (
         <>
             <nav
                 className={cn(
-                "fixed top-0 left-0 right-0 z-50 transition-all duration-500 gpu-boost",
+                "fixed top-0 left-0 right-0 z-[100] transition-all duration-500 gpu-boost",
                 (scrolled || isOpen || pathname !== "/") 
                     ? "bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200 dark:border-white/5 py-3 shadow-md text-slate-900 dark:text-white" 
                     : "bg-gradient-to-b from-black/15 via-transparent to-transparent text-white"
@@ -129,7 +134,7 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
         {/* Mobile Nav Overlay */}
         <div
             className={cn(
-                "fixed inset-0 bg-white dark:bg-slate-950 z-[100] md:hidden transition-all duration-500 ease-in-out px-4 pt-28 flex flex-col items-center gpu-boost",
+                "fixed inset-0 bg-white dark:bg-slate-950 z-[90] md:hidden transition-all duration-500 ease-in-out px-4 pt-28 flex flex-col items-center gpu-boost",
                 isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
             )}
         >
@@ -146,9 +151,8 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
                                     "flex items-center justify-center h-14 rounded-2xl border transition-all duration-300 font-bold text-xs tracking-widest uppercase",
                                     pathname === link.href 
                                         ? "bg-primary text-white border-primary shadow-lg shadow-primary/20 scale-[1.02]" 
-                                        : "bg-white dark:bg-white border-slate-100 dark:border-slate-100 text-slate-900 dark:text-slate-900"
+                                        : "bg-slate-50 dark:bg-slate-900/50 border-slate-100 dark:border-white/5 text-slate-600 dark:text-slate-400"
                                 )}
-                                onClick={() => setIsOpen(false)}
                             >
                                 {link.name}
                             </Link>
@@ -160,7 +164,6 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
                             <Link
                                 href="/gp-portal-2026"
                                 className="h-14 flex items-center justify-center gap-3 rounded-2xl bg-primary/10 border border-primary/20 text-primary font-bold text-xs uppercase tracking-[0.2em] transition-all hover:bg-primary/20"
-                                onClick={() => setIsOpen(false)}
                             >
                                 <LayoutDashboard className="w-4 h-4" />
                                 Admin Panel
