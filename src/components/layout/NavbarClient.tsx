@@ -134,13 +134,23 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
         {/* Mobile Nav Overlay */}
         <div
             className={cn(
-                "fixed inset-0 bg-white dark:bg-slate-950 z-[90] md:hidden transition-all duration-500 ease-in-out px-4 pt-28 flex flex-col items-center gpu-boost",
+                "fixed inset-0 bg-white dark:bg-slate-950 z-[200] md:hidden transition-all duration-500 ease-in-out px-4 flex flex-col items-center gpu-boost",
                 isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
             )}
         >
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 rounded-full blur-[80px] pointer-events-none" />
+                <div className="w-full flex items-center justify-between py-6 relative z-[210]">
+                    <div className="h-12 w-auto">
+                        <img src={settings.logoUrl || "/logo-v4.png"} alt="Logo" className="h-full w-auto object-contain rounded-xl" />
+                    </div>
+                    <button 
+                        onClick={() => setIsOpen(false)}
+                        className="p-3 bg-slate-100 dark:bg-white/10 rounded-full text-slate-900 dark:text-white transition-transform active:scale-95"
+                    >
+                        <X className="w-6 h-6" />
+                    </button>
+                </div>
 
-                <div className="relative w-full max-w-sm flex flex-col gap-5 text-center">
+                <div className="pt-8 w-full max-w-sm flex flex-col gap-6 text-center">
                     <div className="grid grid-cols-2 gap-3 mb-2">
                         {NAV_LINKS.map((link, i) => (
                             <Link
