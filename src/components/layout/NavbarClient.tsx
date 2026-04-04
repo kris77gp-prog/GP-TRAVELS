@@ -137,46 +137,45 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
         {/* Mobile Nav Overlay */}
         <div
             className={cn(
-                "fixed inset-0 bg-white dark:bg-slate-950 z-[200] md:hidden transition-all duration-500 ease-in-out px-4 flex flex-col items-center gpu-boost",
+                "fixed inset-0 bg-white dark:bg-slate-950 z-[500] md:hidden transition-all duration-500 ease-in-out px-6 py-8 flex flex-col items-center gpu-boost",
                 isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
             )}
         >
-                <div className="w-full flex items-center justify-between py-6 relative z-[210]">
-                    <div className="h-12 w-auto">
+                {/* Mobile Header Inside Overlay */}
+                <div className="w-full flex items-center justify-between mb-12 relative z-[510]">
+                    <div className="h-10 w-auto">
                         <img src={settings.logoUrl || "/logo-v4.png"} alt="Logo" className="h-full w-auto object-contain rounded-xl" />
                     </div>
                     <button 
                         onClick={() => setIsOpen(false)}
-                        className="p-3 bg-slate-100 dark:bg-white/10 rounded-full text-slate-900 dark:text-white transition-transform active:scale-95"
+                        className="p-4 bg-slate-100 dark:bg-white/10 rounded-full text-slate-900 dark:text-white transition-all active:scale-95 active:rotate-90"
                     >
                         <X className="w-6 h-6" />
                     </button>
                 </div>
 
-                <div className="pt-8 w-full max-w-sm flex flex-col gap-8 text-center relative z-[300] pointer-events-auto">
-                    <div className="bg-slate-50/50 dark:bg-white/5 p-6 rounded-[2rem] border border-slate-100 dark:border-white/5 shadow-inner">
-                        <div className="grid grid-cols-2 gap-4">
-                            {NAV_LINKS.map((link, i) => (
-                                <Link
-                                    key={link.name}
-                                    href={link.href}
-                                    className={cn(
-                                        "flex items-center justify-center h-16 rounded-2xl border transition-all duration-300 font-black text-[13px] tracking-widest uppercase shadow-sm",
-                                        pathname === link.href 
-                                            ? "bg-primary text-white border-primary shadow-lg shadow-primary/30 scale-[1.05]" 
-                                            : "bg-white border-slate-200 text-slate-900 active:scale-95"
-                                    )}
-                                >
-                                    {link.name}
-                                </Link>
-                            ))}
-                        </div>
+                <div className="w-full max-w-sm flex flex-col gap-4 text-center relative z-[520] pointer-events-auto">
+                    {NAV_LINKS.map((link, i) => (
+                        <Link
+                            key={link.name}
+                            href={link.href}
+                            className={cn(
+                                "flex items-center justify-between px-8 h-20 rounded-[1.5rem] border transition-all duration-300 font-black text-sm tracking-[0.1em] uppercase shadow-md group",
+                                pathname === link.href 
+                                    ? "bg-primary text-white border-primary shadow-xl shadow-primary/30 scale-[1.02]" 
+                                    : "bg-white border-slate-100 text-slate-900 hover:border-primary/30"
+                            )}
+                        >
+                            <span className="flex-1 text-center">{link.name}</span>
+                        </Link>
+                    ))}
 
+                    <div className="mt-8 pt-8 border-t border-slate-200/50 dark:border-white/10 flex flex-col gap-4">
                         {session && (
-                            <div className="flex flex-col gap-4 mt-6 pt-6 border-t border-slate-200 dark:border-white/10">
+                            <>
                                 <Link
                                     href="/gp-portal-2026"
-                                    className="h-16 flex items-center justify-center gap-3 rounded-2xl bg-primary text-white font-black text-[13px] uppercase tracking-[0.2em] shadow-lg shadow-primary/20"
+                                    className="h-18 flex items-center justify-center gap-3 rounded-[1.5rem] bg-indigo-500 text-white font-black text-sm uppercase tracking-widest shadow-lg shadow-indigo-500/20"
                                 >
                                     <LayoutDashboard className="w-5 h-5" />
                                     Admin Panel
@@ -186,19 +185,17 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
                                         signOut({ callbackUrl: '/' });
                                         setIsOpen(false);
                                     }}
-                                    className="h-14 flex items-center justify-center gap-3 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-500 font-black text-[13px] uppercase tracking-[0.2em]"
+                                    className="h-16 flex items-center justify-center gap-3 rounded-[1.5rem] bg-red-500/10 border border-red-500/20 text-red-500 font-black text-sm uppercase tracking-widest"
                                 >
                                     <LogOut className="w-5 h-5" />
                                     Sign Out
                                 </button>
-                            </div>
+                            </>
                         )}
-                    </div>
 
-                    <div className="mt-2">
-                        <Button href={`tel:${phone}`} size="lg" className="w-full h-20 rounded-[2rem] text-sm font-black uppercase tracking-[0.3em] shadow-2xl shadow-primary/20">
-                            <Phone className="w-5 h-5 mr-3" />
-                            Direct Call
+                        <Button href={`tel:${phone}`} size="lg" className="w-full h-20 rounded-[1.5rem] text-sm font-black uppercase tracking-[0.2em] shadow-2xl shadow-primary/30 bg-primary text-white flex items-center justify-center gap-3">
+                            <Phone className="w-5 h-5" />
+                            Book with us Now
                         </Button>
                     </div>
                 </div>
