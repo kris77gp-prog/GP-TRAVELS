@@ -19,7 +19,15 @@ const NAV_LINKS = [
     { name: 'Contact', href: '/contact' },
 ];
 
-export const NavbarClient = ({ settings }: { settings: Record<string, string> }) => {
+export const NavbarClient = ({ 
+    settings,
+    tours = [],
+    cars = []
+}: { 
+    settings: Record<string, string>,
+    tours?: any[],
+    cars?: any[]
+}) => {
     const { data: session } = useSession();
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
@@ -199,7 +207,7 @@ export const NavbarClient = ({ settings }: { settings: Record<string, string> })
                     </div>
                 </div>
             )}
-            <TravelBot />
+            <TravelBot tours={tours} cars={cars} settings={settings} />
         </>
     );
 };

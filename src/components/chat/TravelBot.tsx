@@ -20,7 +20,19 @@ const QUICK_ACTIONS = [
     { label: "Our Fleet", icon: <Sparkles className="w-4 h-4" /> },
 ];
 
-export const TravelBot = () => {
+export const TravelBot = ({ 
+    tours = [], 
+    cars = [], 
+    settings = {} 
+}: { 
+    tours?: any[], 
+    cars?: any[], 
+    settings?: Record<string, string> 
+}) => {
+    const activeTours = tours.length > 0 ? tours : TOURS;
+    const activeSettings = { ...CONTACT_INFO, ...settings };
+    const activeCars = cars.length > 0 ? cars : [];
+    
     const [isOpen, setIsOpen] = useState(false);
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState<Message[]>([
@@ -46,24 +58,31 @@ export const TravelBot = () => {
         const query = userInput.toLowerCase();
         
         if (query.includes('hi') || query.includes('hello') || query.includes('hey')) {
-            return "Hello! I'm ready to help you explore the world. What's on your bucket list?";
+            return "Hello! I'm ready to help you explore the world with GP Tours. What's on your bucket list?";
         }
         
-        if (query.includes('contact') || query.includes('phone') || query.includes('call') || query.includes('email')) {
-            return `You can reach our experts anytime!\n\n📞 Phone: ${CONTACT_INFO.phone}\n📧 Email: ${CONTACT_INFO.email}\n📍 Office: ${CONTACT_INFO.address}`;
+        if (query.includes('contact') || query.includes('phone') || query.includes('call') || query.includes('email') || query.includes('info')) {
+            return `You can reach our experts anytime!\n\n📞 Phone: ${activeSettings.phone || 'Contact for info'}\n📧 Email: ${activeSettings.email || 'info@gptourstravel.com'}\n📍 Office: ${activeSettings.address || 'Visit our Contact page'}`;
         }
 
         if (query.includes('tour') || query.includes('destination') || query.includes('place')) {
-            const tourList = TOURS.slice(0, 3).map(t => `• ${t.title} (${t.destination})`).join('\n');
-            return `We have some incredible featured tours right now:\n\n${tourList}\n\nWhich one would you like to know more about?`;
+            if (activeTours.length > 0) {
+                const tourList = activeTours.slice(0, 4).map(t => `• ${t.title} (${t.destination})`).join('\n');
+                return `We have some incredible live tours right now:\n\n${tourList}\n\nWhich one would you like to know more about?`;
+            }
+            return "We are currently updating our tour packages. Please check back in a few minutes or contact us for custom requests!";
         }
 
         if (query.includes('fleet') || query.includes('car') || query.includes('vehicle')) {
-            return "Our luxury fleet includes premium sedans, spacious SUVs, and executive vans for your comfort. Visit our 'Fleet' page for full details!";
+            if (activeCars.length > 0) {
+                const carList = activeCars.slice(0, 3).map(c => `• ${c.name} (${c.details})`).join('\n');
+                return `Our luxury fleet includes:\n\n${carList}\n\nVisit our 'Fleet' page for the full premium selection!`;
+            }
+            return "Our luxury fleet includes premium sedans and SUVs for your comfort. Visit our 'Fleet' page for full details!";
         }
 
         if (query.includes('price') || query.includes('cost') || query.includes('money')) {
-            return "Our premium tours start from around ₹850, depending on the destination and luxury level. I can give you more details on any specific tour!";
+            return "Our premium tours are competitively priced to offer maximum value. I can give you more details on any specific tour or car from our list!";
         }
 
         return "I'm not sure I understand that yet, but our human team definitely will! Would you like our contact info instead?";

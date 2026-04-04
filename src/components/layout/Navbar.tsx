@@ -1,10 +1,14 @@
-
 import React from 'react';
-import { getSiteSettings } from '@/lib/settings';
+import { getSiteSettings, getTours, getCars } from '@/lib/settings';
 import { NavbarClient } from './NavbarClient';
 
 export const Navbar = async () => {
-    // This is now an independent fetch
-    const settings = await getSiteSettings();
-    return <NavbarClient settings={settings} />;
+    // Parallel fetch for best performance
+    const [settings, tours, cars] = await Promise.all([
+        getSiteSettings(),
+        getTours(),
+        getCars()
+    ]);
+
+    return <NavbarClient settings={settings} tours={tours} cars={cars} />;
 };

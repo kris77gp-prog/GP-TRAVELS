@@ -29,6 +29,26 @@ export const getTestimonials = unstable_cache(
     { tags: ['testimonials'] }
 );
 
+export const getTours = unstable_cache(
+    async () => {
+        return await prisma.tour.findMany({
+            orderBy: { createdAt: 'desc' }
+        });
+    },
+    ['all-tours'],
+    { tags: ['tours'] }
+);
+
+export const getCars = unstable_cache(
+    async () => {
+        return await prisma.car.findMany({
+            orderBy: { createdAt: 'desc' }
+        });
+    },
+    ['all-cars'],
+    { tags: ['cars'] }
+);
+
 export const CONTACT_INFO = {
     phone: '+1234567890',
     whatsapp: '+1234567890',
