@@ -69,11 +69,14 @@ export default async function TourDetailPage({
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
                     {/* Left Side: Images */}
                     <div className="space-y-8">
-                        <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl">
-                            <img
+                        <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl bg-slate-900">
+                            <Image
                                 src={tour.image}
                                 alt={tour.title}
-                                className="w-full h-full object-cover"
+                                fill
+                                priority
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                className="object-cover"
                             />
                         </div>
 
