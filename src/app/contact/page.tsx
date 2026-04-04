@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import { ContactForm } from "@/components/sections/ContactForm";
-import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, MessageCircle, Clock, ShieldCheck, Zap, Sparkles } from "lucide-react";
 import { CONTACT_INFO } from "@/lib/data";
 import { getSiteSettings } from "@/lib/settings";
@@ -143,18 +142,14 @@ export default function ContactPage() {
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-20 relative">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 rounded-full blur-[100px] pointer-events-none opacity-50" />
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="relative z-10"
-                    >
+                    <div className="relative z-10">
                         <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-6 text-slate-900 dark:text-white">
                             Get in <span className="text-primary italic">Touch</span>
                         </h1>
                         <p className="text-slate-500 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
                             Have questions or ready to book your next adventure? <br className="hidden md:block" /> We're just a message or call away.
                         </p>
-                    </motion.div>
+                    </div>
                 </div>
 
                 <Suspense fallback={<div className="grid grid-cols-1 lg:grid-cols-3 gap-12 animate-pulse"><div className="h-96 bg-slate-100 rounded-[3rem]" /><div className="lg:col-span-2 h-96 bg-slate-100 rounded-[3rem]" /></div>}>
